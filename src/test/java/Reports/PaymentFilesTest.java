@@ -28,5 +28,7 @@ public class PaymentFilesTest extends TestBase {
         paymentFilesPage=homePage.clickOnPaymentFiles();
         paymentFilesPage.clickOnDownloadIcon();
         Thread.sleep(2000);
+        String fileName = paymentFilesPage.getFileName();
+        Assert.assertTrue(paymentFilesPage.verifyDownloadPayments(fileName));
     }
 }

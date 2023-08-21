@@ -5,12 +5,17 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.util.concurrent.TimeUnit;
 
 public class PaymentFilesPage extends PageBase {
     // Locators using By objects
     private By filterPayments = By.cssSelector("select#dr_shortcuts");
     private By downloadIcon = By.xpath("//*[@id=\"paymentFileList\"]/tbody/tr[1]/td[7]/a[@title='Download Payment File']");
+    private By fileNameOnTable = By.xpath("//*[@id=\"paymentFileList\"]/tbody/tr[1]/td[2]");
     private By dateOneTheTable = By.xpath("//*[@id=\"paymentFileList\"]/tbody/tr[1]/td[3]");
     private By sortTheDate = By.xpath("//*[@id=\"paymentFileList\"]/thead/tr/th[3]");
     private By trueIcon = By.xpath("//*[@id=\"paymentFileList\"]/tbody/tr[1]/td[7]/a[@title='Confirm Payment File']");
@@ -44,5 +49,35 @@ public class PaymentFilesPage extends PageBase {
 
     public void clickOnDownloadIcon() {
         driver.findElement(downloadIcon).click();
+    }
+
+    public String getFileName ()
+    {
+       return driver.findElement(fileNameOnTable).getText();
+    }
+    public boolean verifyDownloadPayments (String filename)
+    {
+
+        int timeoutSeconds = 60;
+        Path filePath = Paths.get("C:\\Users\\elost\\Downloads", filename);
+        boolean fileDownloaded = false;
+
+        for (int i = 0; i < timeoutSeconds; i++) {
+            if (Files.exists(filePath)) {
+                fileDownloaded = true;
+                break;
+            }
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (fileDownloaded) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

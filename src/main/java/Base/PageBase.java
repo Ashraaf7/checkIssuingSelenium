@@ -25,6 +25,10 @@ public class PageBase {
          helperWebElement = driver.findElement(element);
         new WebDriverWait(driver, Duration.ofSeconds(seconds)).until(ExpectedConditions.or(visibilityOf(helperWebElement),ExpectedConditions.elementToBeClickable(helperWebElement))) ;
     }
+    public static void ImplicitWait()
+    {
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+    }
     public static void scrollToElement(By element)
     {
          helperWebElement = driver.findElement(element);

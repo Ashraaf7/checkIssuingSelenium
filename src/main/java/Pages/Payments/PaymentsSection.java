@@ -8,7 +8,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class PaymentsSection extends PageBase {
 
@@ -103,6 +107,30 @@ public class PaymentsSection extends PageBase {
         PageBase.scrollToElement(exportPageButton);
         driver.findElement(exportPageButton).click();
         selectFromFilterDropDown(text);
+    }
+    public boolean verifyExportPage()
+    {
+        int timeoutSeconds = 60;
+        Path filePath = Paths.get("C:\\Users\\elost\\Downloads", "Checkissuing.csv");
+        boolean fileDownloaded = false;
+
+        for (int i = 0; i < timeoutSeconds; i++) {
+            if (Files.exists(filePath)) {
+                fileDownloaded = true;
+                break;
+            }
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (fileDownloaded) {
+            return true;
+        } else {
+            return false;
+        }
     }
     public void selectFromWithSelectedDropDown(String text){
         PageBase.scrollToElement(withSelectedButton);

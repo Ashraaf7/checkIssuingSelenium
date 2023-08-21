@@ -6,6 +6,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
+
 public class PositivePayPage extends PageBase {
     // Locators using By objects
     private By accountTypeFilter = By.cssSelector("select#fs_filter");
@@ -132,4 +138,39 @@ public class PositivePayPage extends PageBase {
         driver.findElement(doDownloadLink).click();
     }
 
+    public boolean verifyDownloadSFTP (String filenamePattern)
+    {
+        int timeoutSeconds = 60;
+        Path downloadDir = Paths.get("C:\\Users\\elost\\Downloads");
+        boolean fileDownloaded = false;
+
+        for (int i = 0; i < timeoutSeconds; i++) {
+            if (checkFilesInDirectory(downloadDir, filenamePattern)) {
+                fileDownloaded = true;
+                break;
+            }
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return fileDownloaded;
+
+    }
+    private boolean checkFilesInDirectory(Path directory, String filenamePattern) {
+        Pattern regex = Pattern.compile(filenamePattern);
+
+        try {
+            return Files.walk(directory)
+                    .filter(Files::isRegularFile)
+                    .map(Path::getFileName)
+                    .map(Path::toString)
+                    .anyMatch(filename -> regex.matcher(filename).matches());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

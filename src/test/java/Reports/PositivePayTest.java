@@ -65,6 +65,8 @@ public class PositivePayTest extends TestBase {
         positivePayPage.selectDownloadFormat("Arcadia Power - CSV");
         positivePayPage.clickDoDownloadLink();
         Thread.sleep(2000);
-        Assert.assertTrue(true);
+        String pattern = "^pp-arcadia-power-\\d{8}-\\d{8}\\.csv$";
+        Assert.assertTrue(positivePayPage.verifyDownloadSFTP(pattern));
     }
 }
+

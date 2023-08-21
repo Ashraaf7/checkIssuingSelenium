@@ -122,6 +122,7 @@ public class CreatePaymentTest extends TestBase {
         createPaymentPage=homePage.clickOnCreatePayment();
         createPaymentPage.selectFromExportPageDropDown("Export as CSV");
         Thread.sleep(4000);
+        Assert.assertTrue(createPaymentPage.verifyExportPage());
     }
     @Test
     public void verifySelectingFromWithSelectedDropDown( ) throws InterruptedException {

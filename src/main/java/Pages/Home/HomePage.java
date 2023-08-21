@@ -8,6 +8,7 @@ import Pages.Payments.ViewPaymentsPage;
 import Pages.Reports.CheckImagesPage;
 import Pages.Reports.PaymentFilesPage;
 import Pages.Reports.PositivePayPage;
+import Pages.Settings.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -127,40 +128,45 @@ public class HomePage extends PageBase {
         PageBase.explicitWait(10,downloadCheckImages);
        return driver.findElement(downloadCheckImages).isDisplayed();
     }
-    public void clickOnAllSettings()
+    public AllSettingsPage clickOnAllSettings()
     {
         PageBase.explicitWait(10,settingsButton);
         driver.findElement(settingsButton).click();
         PageBase.explicitWait(10,allSettingsButton);
         driver.findElement(allSettingsButton).click();
+        return new AllSettingsPage(driver);
     }
-    public void clickOnFundingSources()
+    public FundingSourcesPage clickOnFundingSources()
     {
         PageBase.explicitWait(10,settingsButton);
         driver.findElement(settingsButton).click();
         PageBase.explicitWait(10,fundingSourcesButton);
         driver.findElement(fundingSourcesButton).click();
+        return new FundingSourcesPage(driver);
     }
-    public void clickOnUsers()
+    public UsersPage clickOnUsers()
     {
         PageBase.explicitWait(10,settingsButton);
         driver.findElement(settingsButton).click();
         PageBase.explicitWait(10,usersButton);
         driver.findElement(usersButton).click();
+        return new UsersPage(driver);
     }
-    public void clickOnLogos()
+    public LogosPage clickOnLogos()
     {
         PageBase.explicitWait(10,settingsButton);
         driver.findElement(settingsButton).click();
         PageBase.explicitWait(10,logosButton);
         driver.findElement(logosButton).click();
+        return new LogosPage(driver);
     }
-    public void clickOnWhiteLabels()
+    public WhitelabelPage clickOnWhiteLabels()
     {
         PageBase.explicitWait(10,settingsButton);
         driver.findElement(settingsButton).click();
         PageBase.explicitWait(10,whiteLabelsButton);
         driver.findElement(whiteLabelsButton).click();
+        return new WhitelabelPage(driver);
     }
 
     public void setFilterForPayments(String filterOption)
