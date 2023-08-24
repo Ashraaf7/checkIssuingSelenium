@@ -7,12 +7,11 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class LogosTest extends TestBase {
-    HomePage homePage ;
     LogosPage logosPage ;
     @Test
     public void verifyAddingLogos() throws InterruptedException {
-        loginPage.enterUsername("admin@checkissuing.com");
-        loginPage.enterPassword("1qaz!QAZ");
+        loginPage.enterUsername(userName);
+        loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         logosPage=homePage.clickOnLogos();
         logosPage.addLogo("AshrafLogo","Logo Test","E:\\Projects\\checkIssuingSelenium\\src\\main\\resources\\Attachments\\Image.jpg");

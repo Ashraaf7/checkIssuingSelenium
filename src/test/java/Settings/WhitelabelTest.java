@@ -8,12 +8,11 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class WhitelabelTest extends TestBase {
-    HomePage homePage ;
     WhitelabelPage whitelabelPage ;
     @Test
     public void verifyAddingUser() throws InterruptedException {
-        loginPage.enterUsername("admin@checkissuing.com");
-        loginPage.enterPassword("1qaz!QAZ");
+        loginPage.enterUsername(userName);
+        loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         whitelabelPage=homePage.clickOnWhiteLabels();
         whitelabelPage.addWhitelabel("AshrafLabel","ashraf.label@gmail.com",true,false);

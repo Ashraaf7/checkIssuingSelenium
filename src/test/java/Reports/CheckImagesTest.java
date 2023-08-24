@@ -13,8 +13,8 @@ public class CheckImagesTest extends TestBase {
     SoftAssert softAssert ;
     @Test
     public void verifyDownloadingImages() throws InterruptedException {
-        loginPage.enterUsername("admin@checkissuing.com");
-        loginPage.enterPassword("1qaz!QAZ");
+        loginPage.enterUsername(userName);
+        loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         checkImagesPage=homePage.clickOnCheckImages();
         String type ="Sent Payments";

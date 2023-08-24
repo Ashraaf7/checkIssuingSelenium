@@ -8,13 +8,12 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class FundingSourcesTest extends TestBase {
-    HomePage homePage;
     FundingSourcesPage fundingSourcesPage ;
 
     @Test
     public void verifyEditingCompanyInfo() throws InterruptedException {
-        loginPage.enterUsername("admin@checkissuing.com");
-        loginPage.enterPassword("1qaz!QAZ");
+        loginPage.enterUsername(userName);
+        loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         fundingSourcesPage=homePage.clickOnFundingSources();
         fundingSourcesPage.addingFundingSource(true,false,"Ahroof","BankAshraf","Cairo",

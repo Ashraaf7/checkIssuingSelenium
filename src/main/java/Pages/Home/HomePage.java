@@ -16,7 +16,6 @@ import org.openqa.selenium.support.ui.Select;
 
 public class HomePage extends PageBase {
     //Payment List
-
     By paymentButton =By.xpath("(//ul[@id='sidebarnav'] /li)[1]") ;
     By createPaymentButton =By.xpath("((//ul[@id='sidebarnav']  /li)[1] /ul / li )[1]") ;
     By uploadPaymentButton =By.xpath("((//ul[@id='sidebarnav']  /li)[1] /ul / li )[2]") ;
@@ -122,7 +121,7 @@ public class HomePage extends PageBase {
         driver.findElement(checkImagesButton).click();
         return new CheckImagesPage(driver);
     }
-    public boolean getCheckImagesTitle()
+    public boolean verifyGettingCheckImagesTitle()
     {
 
         PageBase.explicitWait(10,downloadCheckImages);

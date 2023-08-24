@@ -7,15 +7,13 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-public class PayeesTest extends TestBase {
+public class PayeesTest extends PaymentSectionTest {
 
-    HomePage homePage ;
     PayeesPage payeesPage;
-    SoftAssert softAssert ;
     @Test
     public void verifyCreateNewPayee() throws InterruptedException {
-        loginPage.enterUsername("admin@checkissuing.com");
-        loginPage.enterPassword("1qaz!QAZ");
+        loginPage.enterUsername(userName);
+        loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         payeesPage =homePage.clickOnPayees();
         payeesPage.clickOnCreateNewPayee();
@@ -30,8 +28,8 @@ public class PayeesTest extends TestBase {
     }
     @Test
     public void verifyPayPayee() throws InterruptedException {
-        loginPage.enterUsername("admin@checkissuing.com");
-        loginPage.enterPassword("1qaz!QAZ");
+        loginPage.enterUsername(userName);
+        loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         payeesPage =homePage.clickOnPayees();
         payeesPage.clickOnPayPayee();
@@ -40,8 +38,8 @@ public class PayeesTest extends TestBase {
     }
     @Test
     public void verifyDisablePayee() throws InterruptedException {
-        loginPage.enterUsername("admin@checkissuing.com");
-        loginPage.enterPassword("1qaz!QAZ");
+        loginPage.enterUsername(userName);
+        loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         payeesPage =homePage.clickOnPayees();
         payeesPage.clickOnDisablePayee();
@@ -50,8 +48,8 @@ public class PayeesTest extends TestBase {
     }
     @Test
     public void verifyPayeeDetails() throws InterruptedException {
-        loginPage.enterUsername("admin@checkissuing.com");
-        loginPage.enterPassword("1qaz!QAZ");
+        loginPage.enterUsername(userName);
+        loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         payeesPage =homePage.clickOnPayees();
         String expected = payeesPage.getPayeeName();
@@ -61,8 +59,8 @@ public class PayeesTest extends TestBase {
     }
     @Test
     public void verifyDeletingPayee() throws InterruptedException {
-        loginPage.enterUsername("admin@checkissuing.com");
-        loginPage.enterPassword("1qaz!QAZ");
+        loginPage.enterUsername(userName);
+        loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         payeesPage =homePage.clickOnPayees();
         payeesPage.clickOnDeletePayee();
@@ -71,92 +69,13 @@ public class PayeesTest extends TestBase {
     }
     @Test
     public void verifyClickingOnCreatePaymentButton() {
-        loginPage.enterUsername("admin@checkissuing.com");
-        loginPage.enterPassword("1qaz!QAZ");
+        loginPage.enterUsername(userName);
+        loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         payeesPage =homePage.clickOnPayees();
         payeesPage.clickOnCreatePayment();
         Assert.assertEquals(payeesPage.checkVisibilityOfCreatePaymentForm(),true);
     }
 
-    @Test
-    public void verifyClickingOnUploadPaymentButton() {
-        loginPage.enterUsername("admin@checkissuing.com");
-        loginPage.enterPassword("1qaz!QAZ");
-        homePage=loginPage.clickOnLoginButton();
-        payeesPage =homePage.clickOnPayees();
-        payeesPage.clickOnUploadPayment();
-        Assert.assertEquals(payeesPage.checkVisibilityOfUploadPaymentForm(),true);
-    }
-    @Test
-    public void verifyClickingOnNACHAButton() {
-        loginPage.enterUsername("admin@checkissuing.com");
-        loginPage.enterPassword("1qaz!QAZ");
-        homePage=loginPage.clickOnLoginButton();
-        payeesPage=homePage.clickOnPayees();
-        payeesPage.clickOnNACHA();
-        Assert.assertEquals(payeesPage.checkVisibilityOfNACHAForm(),true);
-    }
-    @Test
-    public void verifySelectingNumberOfPages() {
-        loginPage.enterUsername("admin@checkissuing.com");
-        loginPage.enterPassword("1qaz!QAZ");
-        homePage=loginPage.clickOnLoginButton();
-        payeesPage=homePage.clickOnPayees();
-        payeesPage.selectNumberOfPages("25");
-        boolean condition ;
-        if(payeesPage.getPaymentsCount()<=25)
-            condition= true;
-        else
-            condition=false;
-        Assert.assertTrue(condition,"Condition for check number of pages");
-    }
-    @Test
-    public void verifyFilteringWithDate() throws InterruptedException {
-        loginPage.enterUsername("admin@checkissuing.com");
-        loginPage.enterPassword("1qaz!QAZ");
-        homePage=loginPage.clickOnLoginButton();
-        payeesPage=homePage.clickOnPayees();
-        payeesPage.selectFilterDate("Cleared","15","15");
-        Assert.assertTrue(payeesPage.verifyNoPaymentMessage());
-    }
-    @Test
-    public void verifySelectingFromCustomizationDropDown( ) throws InterruptedException {
-        softAssert = new SoftAssert();
-        loginPage.enterUsername("admin@checkissuing.com");
-        loginPage.enterPassword("1qaz!QAZ");
-        homePage=loginPage.clickOnLoginButton();
-        payeesPage=homePage.clickOnPayees();
-        payeesPage.selectFromCustomizationDropDown("Amount");
-        softAssert.assertEquals(payeesPage.checkCustomization(),"Amount");
-        softAssert.assertAll();
-    }
-    @Test
-    public void verifySelectingFromExportPageDropDown( ) throws InterruptedException {
-        loginPage.enterUsername("admin@checkissuing.com");
-        loginPage.enterPassword("1qaz!QAZ");
-        homePage=loginPage.clickOnLoginButton();
-        payeesPage=homePage.clickOnPayees();
-        payeesPage.selectFromExportPageDropDown("Export as CSV");
-        Thread.sleep(4000);
-    }
-    @Test
-    public void verifySelectingFromWithSelectedDropDown( ) throws InterruptedException {
-        loginPage.enterUsername("admin@checkissuing.com");
-        loginPage.enterPassword("1qaz!QAZ");
-        homePage=loginPage.clickOnLoginButton();
-        payeesPage=homePage.clickOnPayees();
-        payeesPage.selectFromWithSelectedDropDown("Resend Claim Email(s)");
-        Assert.assertTrue(payeesPage.verifyClaimFlash());
-    }
-    @Test
-    public void verifySelectingFromSelectDropDown( ) throws InterruptedException {
-        loginPage.enterUsername("admin@checkissuing.com");
-        loginPage.enterPassword("1qaz!QAZ");
-        homePage=loginPage.clickOnLoginButton();
-        payeesPage=homePage.clickOnPayees();
-        payeesPage.selectFromSelectDropDown("Select All");
-        Thread.sleep(2000);
-        Assert.assertTrue(payeesPage.verifyNoMatchingFoundMessage());
-    }
+
 }

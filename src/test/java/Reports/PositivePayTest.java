@@ -7,12 +7,12 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class PositivePayTest extends TestBase {
-    HomePage homePage;
+
     PositivePayPage positivePayPage ;
     @Test
     public void verifyAccountFilter() throws InterruptedException {
-        loginPage.enterUsername("admin@checkissuing.com");
-        loginPage.enterPassword("1qaz!QAZ");
+        loginPage.enterUsername(userName);
+        loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         positivePayPage=homePage.clickOnPositivePays();
         String bank ="Bank 34";
@@ -22,8 +22,8 @@ public class PositivePayTest extends TestBase {
     }
     @Test
     public void verifyDateFilter() throws InterruptedException {
-        loginPage.enterUsername("admin@checkissuing.com");
-        loginPage.enterPassword("1qaz!QAZ");
+        loginPage.enterUsername(userName);
+        loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         positivePayPage=homePage.clickOnPositivePays();
         String date = "This Week";
@@ -33,8 +33,8 @@ public class PositivePayTest extends TestBase {
     }
     @Test
     public void verifyAddingNewSFTP() throws InterruptedException {
-        loginPage.enterUsername("admin@checkissuing.com");
-        loginPage.enterPassword("1qaz!QAZ");
+        loginPage.enterUsername(userName);
+        loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         positivePayPage=homePage.clickOnPositivePays();
         positivePayPage.clickSFTPUploaderIcon();
@@ -44,8 +44,8 @@ public class PositivePayTest extends TestBase {
     }
     @Test
     public void verifyDeletingSFTP() throws InterruptedException {
-        loginPage.enterUsername("admin@checkissuing.com");
-        loginPage.enterPassword("1qaz!QAZ");
+        loginPage.enterUsername(userName);
+        loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         positivePayPage=homePage.clickOnPositivePays();
         positivePayPage.clickSFTPUploaderIcon();
@@ -57,12 +57,13 @@ public class PositivePayTest extends TestBase {
 
     @Test
     public void verifyDownloadingSFTP() throws InterruptedException {
-        loginPage.enterUsername("admin@checkissuing.com");
-        loginPage.enterPassword("1qaz!QAZ");
+        loginPage.enterUsername(userName);
+        loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         positivePayPage=homePage.clickOnPositivePays();
         positivePayPage.clickSFTPDownloadIcon();
-        positivePayPage.selectDownloadFormat("Arcadia Power - CSV");
+        String downloadFormat = "Arcadia Power - CSV";
+        positivePayPage.selectDownloadFormat(downloadFormat);
         positivePayPage.clickDoDownloadLink();
         Thread.sleep(2000);
         String pattern = "^pp-arcadia-power-\\d{8}-\\d{8}\\.csv$";

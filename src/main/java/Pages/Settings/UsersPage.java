@@ -55,7 +55,7 @@ public class UsersPage extends SuperSettings{
     }
     public void paymentsPermissions() {
         driver.findElement(paymentButton).click();
-        PageBase.ImplicitWait();
+        PageBase.ImplicitWait(10);
         driver.findElement(addSendPayments).click();
         driver.findElement(approvePayments).click();
         driver.findElement(cancelPayment).click();
@@ -65,14 +65,14 @@ public class UsersPage extends SuperSettings{
 
     public void financePermissions() {
         driver.findElement(financesButton).click();
-        PageBase.ImplicitWait();
+        PageBase.ImplicitWait(10);
         driver.findElement(billingPermission).click();
         driver.findElement(fundingSources).click();
 
     }
     public void accessPermissions() {
         driver.findElement(accessButton).click();
-        PageBase.ImplicitWait();
+        PageBase.ImplicitWait(10);
         driver.findElement(accountManagement).click();
         driver.findElement(apiAccess).click();
         driver.findElement(manageInsert).click();
@@ -85,7 +85,7 @@ public class UsersPage extends SuperSettings{
     }
     public void otherPermissions() {
         driver.findElement(otherButton).click();
-        PageBase.ImplicitWait();
+        PageBase.ImplicitWait(10);
         driver.findElement(logoManagement).click();
     }
     public void setAllPermissions( ) {

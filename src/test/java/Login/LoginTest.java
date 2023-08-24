@@ -9,8 +9,8 @@ public class LoginTest extends TestBase {
     @Test
     public void validLogin()
     {
-        loginPage.enterUsername("admin@checkissuing.com");
-        loginPage.enterPassword("1qaz!QAZ");
+        loginPage.enterUsername(userName);
+        loginPage.enterPassword(password);
         loginPage.clickOnLoginButton();
         Assert.assertEquals(driver.getCurrentUrl(),"https://web.checkissuing.com/");
     }}

@@ -11,19 +11,20 @@ public class PaymentFilesTest extends TestBase {
     HomePage homePage;
     @Test
     public void verifyFilterOption() throws InterruptedException {
-        loginPage.enterUsername("admin@checkissuing.com");
-        loginPage.enterPassword("1qaz!QAZ");
+        loginPage.enterUsername(userName);
+        loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         paymentFilesPage=homePage.clickOnPaymentFiles();
-        paymentFilesPage.selectFilterPayments("Today");
+        String option = "Today" ;
+        paymentFilesPage.selectFilterPayments(option);
         Thread.sleep(2000);
         Assert.assertTrue(paymentFilesPage.verifyFilteringOption());
     }
 
     @Test
     public void verifyDownloadingPayment() throws InterruptedException {
-        loginPage.enterUsername("admin@checkissuing.com");
-        loginPage.enterPassword("1qaz!QAZ");
+        loginPage.enterUsername(userName);
+        loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         paymentFilesPage=homePage.clickOnPaymentFiles();
         paymentFilesPage.clickOnDownloadIcon();

@@ -7,13 +7,12 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class UsersTest extends TestBase {
-    HomePage homePage;
     UsersPage usersPage ;
 
     @Test
     public void verifyAddingUser() throws InterruptedException {
-        loginPage.enterUsername("admin@checkissuing.com");
-        loginPage.enterPassword("1qaz!QAZ");
+        loginPage.enterUsername(userName);
+        loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         usersPage=homePage.clickOnUsers();
         usersPage.fillUserData("Ashrooof","ashooorf74","ashrooof@gmail.com");

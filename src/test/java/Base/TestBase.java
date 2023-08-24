@@ -1,5 +1,6 @@
 package Base;
 
+import Pages.Home.HomePage;
 import Pages.Login.LoginPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -13,6 +14,10 @@ public class TestBase {
     public WebDriver driver ;
     private EdgeOptions edgeOptions;
     public LoginPage loginPage ;
+    public HomePage homePage;
+    private final String url ="https://web.checkissuing.com/login" ;
+    protected final String userName = "admin@checkissuing.com";
+    protected final String password = "1qaz!QAZ";
     @BeforeMethod
     public void setup()
     {
@@ -20,13 +25,13 @@ public class TestBase {
         driver = new EdgeDriver();
         loginPage = new LoginPage(driver);
         driver.manage().window().maximize();
-        driver.get("https://web.checkissuing.com/login");
+        driver.get(url);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
     @AfterMethod
     public void quit()
     {
-      //  driver.quit();
+        driver.quit();
     }
 
 }
