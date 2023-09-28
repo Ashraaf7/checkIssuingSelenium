@@ -12,5 +12,5 @@ public class LoginTest extends TestBase {
         loginPage.enterUsername(userName);
         loginPage.enterPassword(password);
         loginPage.clickOnLoginButton();
-        Assert.assertEquals(driver.getCurrentUrl(),"https://web.checkissuing.com/");
+        Assert.assertEquals(driver.getCurrentUrl(),"https://web.checkissuing.net/");
     }}

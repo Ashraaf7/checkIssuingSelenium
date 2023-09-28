@@ -43,7 +43,7 @@ public class FundingSourcesPage extends SuperSettings {
     private By generateProof = By.cssSelector("button#genProofBtn");
     private By closeButtonOnGenerateProof = By.cssSelector("button#checkPreviewBtn");
 
-    private By accountNameOnTheTable = By.xpath("//*[@id=\"usersList\"]/tbody/tr[1]/td[2]");
+    private By accountNameOnTheTable = By.xpath("//*[@id=\"fsList\"]/tbody/tr[1]/td[2]");
 
     public void addingFundingSource( boolean business, boolean plaid,String name,
      String bname,String baddress,String type,String anumber, String rnumber)
@@ -232,8 +232,8 @@ public class FundingSourcesPage extends SuperSettings {
         driver.findElement(closeButtonOnGenerateProof).click();
     }
 
-    public String checkThatAccountAdded ()
-    {
+    public String checkThatAccountAdded () throws InterruptedException {
+        Thread.sleep(2000);
         return driver.findElement(accountNameOnTheTable).getText();
     }
 }

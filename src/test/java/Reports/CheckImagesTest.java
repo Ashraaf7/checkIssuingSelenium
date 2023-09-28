@@ -11,6 +11,7 @@ public class CheckImagesTest extends TestBase {
     CheckImagesPage checkImagesPage;
     HomePage homePage;
     SoftAssert softAssert ;
+
     @Test
     public void verifyDownloadingImages() throws InterruptedException {
         loginPage.enterUsername(userName);

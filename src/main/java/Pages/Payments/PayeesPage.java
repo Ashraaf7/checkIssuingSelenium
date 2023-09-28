@@ -1,5 +1,6 @@
 package Pages.Payments;
 
+import Base.PageBase;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -122,6 +123,7 @@ public class PayeesPage extends PaymentsSection {
 
     //Disable and its elements
     By disablePayee = By.xpath("//table[@id='payeeList'] /tbody /tr[1] /td[5] //a[@title=\"Disable Payee\"]");
+    By enablePayee = By.xpath("//table[@id='payeeList'] /tbody /tr[1] /td[5] //a[@title=\"Enable Payee\"]");
     By enabledStatus = By.xpath("//table[@id='payeeList'] /tbody /tr[1] /td[4]");
 
     //Payee details and its elements
@@ -135,16 +137,25 @@ public class PayeesPage extends PaymentsSection {
     public PayeesPage(WebDriver driver) {
         super(driver);
     }
-    public void clickOnPayPayee() {
+    public void clickOnPayPayee() throws InterruptedException{
+        Thread.sleep(2000);
         driver.findElement(payPayee).click();
     }
-    public void clickOnDisablePayee() {
+    public void clickOnDisablePayee()throws InterruptedException {
+        Thread.sleep(2000);
         driver.findElement(disablePayee).click();
     }
-    public void clickOnPayeeDetails() {
+
+    public void clickOnEnablePayee() throws InterruptedException {
+        Thread.sleep(2000);
+        driver.findElement(enablePayee).click();
+    }
+    public void clickOnPayeeDetails()throws InterruptedException {
+        Thread.sleep(2000);
         driver.findElement(payeeDetails).click();
     }
-    public void clickOnDeletePayee() {
+    public void clickOnDeletePayee() throws InterruptedException {
+        Thread.sleep(2000);
         driver.findElement(deletePayee).click();
     }
     public boolean verifyThatPayPayeeAppears()

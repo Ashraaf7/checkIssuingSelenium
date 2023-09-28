@@ -2,12 +2,21 @@
 <suite name="RegressionSuite">
     <test name="RegressionTest">
         <classes>
-            <class name="Login.LoginTest"></class>
-            <class name="Home.HomeTest"></class>
-            <class name="Payments.CreatePaymentTest"></class>
-            <class name="Payments.UploadPaymentFileTest"></class>
-            <class name="Payments.PayeesTest"></class>
-            <class name="Payments.ViewPaymentsTest"></class>
+            <class name="Login.LoginTest"/>
+            <class name="Home.HomeTest"/>
+            <class name="Payments.PaymentSectionTest"/>
+            <class name="Payments.CreatePaymentTest"/>
+            <class name="Payments.UploadPaymentFileTest"/>
+            <class name="Payments.PayeesTest"/>
+            <class name="Payments.ViewPaymentsTest"/>
+            <class name="Reports.PaymentFilesTest"/>
+            <class name="Reports.PositivePayTest"/>
+            <class name="Reports.CheckImagesTest"/>
+            <class name="Settings.AllSettingsTest"/>
+            <class name="Settings.FundingSourcesTest"/>
+            <class name="Settings.LogosTest"/>
+            <class name="Settings.UsersTest"/>
+            <class name="Settings.WhitelabelTest"/>
         </classes>
     </test>
 </suite>

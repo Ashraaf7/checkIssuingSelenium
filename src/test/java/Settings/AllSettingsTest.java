@@ -16,7 +16,7 @@ public class AllSettingsTest extends TestBase {
         loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         allSettingsPage=homePage.clickOnAllSettings();
-        allSettingsPage.completeCompanyProfile("www.test.com","cairo","ahmed esmat","1","(011) 461-9615","ahmed - ahmedashraaf09@gmail.com","ahmed - ahmedashraaf09@gmail.com","ashroof");
+        allSettingsPage.completeCompanyProfile("www.test.com","cairo","ahmed esmat","1","(011) 461-9615","Chys custom body shop - Chyannelitchfield13@gmail.com","Chys custom body shop - Chyannelitchfield13@gmail.com","ashroof");
         Assert.assertEquals(allSettingsPage.assertionForSaving(),true);
     }
 }

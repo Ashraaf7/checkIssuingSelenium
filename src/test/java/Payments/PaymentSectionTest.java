@@ -11,7 +11,7 @@ import org.testng.asserts.SoftAssert;
 public class PaymentSectionTest extends TestBase {
     private PaymentsSection paymentsSection;
     protected SoftAssert softAssert ;
-    @Test
+    @Test(dependsOnMethods = "Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithAdvanced")
     public void verifySelectingNumberOfPages() {
         loginPage.enterUsername(userName);
         loginPage.enterPassword(password);
@@ -26,7 +26,7 @@ public class PaymentSectionTest extends TestBase {
             condition=false;
         Assert.assertTrue(condition,"Condition for check number of pages");
     }
-    @Test
+    @Test(dependsOnMethods = "Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithAdvanced")
     public void verifyFilteringWithDate() throws InterruptedException {
         loginPage.enterUsername(userName);
         loginPage.enterPassword(password);
@@ -38,7 +38,7 @@ public class PaymentSectionTest extends TestBase {
         paymentsSection.selectFilterDate(status,from,to);
         Assert.assertTrue(paymentsSection.verifyNoPaymentMessage());
     }
-    @Test
+    @Test(dependsOnMethods = "Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithAdvanced")
     public void verifySelectingFromCustomizationDropDown( ) throws InterruptedException {
         softAssert = new SoftAssert();
         loginPage.enterUsername(userName);
@@ -50,7 +50,7 @@ public class PaymentSectionTest extends TestBase {
         softAssert.assertEquals(paymentsSection.checkCustomization(),customizationOption);
         softAssert.assertAll();
     }
-    @Test
+    @Test(dependsOnMethods = "Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithAdvanced")
     public void verifySelectingFromExportPageDropDown( ) throws InterruptedException {
         loginPage.enterUsername(userName);
         loginPage.enterPassword(password);
@@ -61,7 +61,7 @@ public class PaymentSectionTest extends TestBase {
         Thread.sleep(4000);
         Assert.assertTrue(paymentsSection.verifyExportPage());
     }
-    @Test
+    @Test(dependsOnMethods = {"Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithAdvanced"})
     public void verifySelectingFromWithSelectedDropDown( ) throws InterruptedException {
         loginPage.enterUsername(userName);
         loginPage.enterPassword(password);
@@ -71,7 +71,7 @@ public class PaymentSectionTest extends TestBase {
         paymentsSection.selectFromWithSelectedDropDown(option);
         Assert.assertTrue(paymentsSection.verifyClaimFlash());
     }
-    @Test
+    @Test(dependsOnMethods = "Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithAdvanced")
     public void verifySelectingFromSelectDropDown( ) throws InterruptedException {
         loginPage.enterUsername(userName);
         loginPage.enterPassword(password);
@@ -82,7 +82,7 @@ public class PaymentSectionTest extends TestBase {
         Thread.sleep(2000);
         Assert.assertTrue(paymentsSection.verifyNoMatchingFoundMessage());
     }
-    @Test
+    @Test(dependsOnMethods = "Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithAdvanced")
     public void verifyClickingOnCreatePaymentButton() {
         loginPage.enterUsername(userName);
         loginPage.enterPassword(password);
@@ -91,7 +91,7 @@ public class PaymentSectionTest extends TestBase {
         paymentsSection.clickOnCreatePayment();
         Assert.assertEquals(paymentsSection.checkVisibilityOfCreatePaymentForm(),true);
     }
-    @Test
+    @Test(dependsOnMethods = "Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithAdvanced")
     public void verifyClickingOnUploadPaymentButton() {
         loginPage.enterUsername(userName);
         loginPage.enterPassword(password);
@@ -100,13 +100,13 @@ public class PaymentSectionTest extends TestBase {
         paymentsSection.clickOnUploadPayment();
         Assert.assertEquals(paymentsSection.checkVisibilityOfUploadPaymentForm(),true);
     }
-    @Test
+    @Test(dependsOnMethods = "Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithAdvanced")
     public void verifyClickingOnNACHAButton() {
         loginPage.enterUsername(userName);
         loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         paymentsSection=homePage.clickOnCreatePayment();
         paymentsSection.clickOnNACHA();
-        Assert.assertEquals(paymentsSection.checkVisibilityOfNACHAForm(),true);
+        Assert.assertTrue(paymentsSection.checkVisibilityOfNACHAForm());
     }
 }

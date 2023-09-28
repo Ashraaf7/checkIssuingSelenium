@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 
 public class PaymentFilesPage extends PageBase {
     // Locators using By objects
@@ -55,15 +56,14 @@ public class PaymentFilesPage extends PageBase {
     {
        return driver.findElement(fileNameOnTable).getText();
     }
-    public boolean verifyDownloadPayments (String filename)
+    public boolean verifyDownloadPayments (String filenamePattern)
     {
-
         int timeoutSeconds = 60;
-        Path filePath = Paths.get("C:\\Users\\elost\\Downloads", filename);
+        Path downloadDir = Paths.get(downloadFilePath);
         boolean fileDownloaded = false;
 
         for (int i = 0; i < timeoutSeconds; i++) {
-            if (Files.exists(filePath)) {
+            if (checkFilesInDirectory(downloadDir, filenamePattern)) {
                 fileDownloaded = true;
                 break;
             }
@@ -74,9 +74,20 @@ public class PaymentFilesPage extends PageBase {
             }
         }
 
-        if (fileDownloaded) {
-            return true;
-        } else {
+        return fileDownloaded;
+
+    }
+    private boolean checkFilesInDirectory(Path directory, String filenamePattern) {
+        Pattern regex = Pattern.compile(filenamePattern);
+
+        try {
+            return Files.walk(directory)
+                    .filter(Files::isRegularFile)
+                    .map(Path::getFileName)
+                    .map(Path::toString)
+                    .anyMatch(filename -> regex.matcher(filename).matches());
+        } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }

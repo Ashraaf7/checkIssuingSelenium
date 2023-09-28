@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="HomeTestSuite">
+    <test name="HomeTestSuite">
+        <classes>
+            <class name="Home.HomeTest"/>
+            <class name="Payments.CreatePaymentTest">
+                <methods>
+                    <include name="verifyCreatingPaymentOnCheckWithoutAdvanced"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

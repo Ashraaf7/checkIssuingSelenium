@@ -37,7 +37,9 @@ public class WhitelabelPage extends SuperSettings{
     }
 
     public String verifyIfLabelAdded () throws InterruptedException {
+        Thread.sleep(2000);
         driver.findElement(idOnTable).click();
+        Thread.sleep(2000);
         driver.findElement(idOnTable).click();
         Thread.sleep(2000);
         return driver.findElement(whitelabelNameOnTheTable).getText();

@@ -1,5 +1,6 @@
 package Pages.Payments;
 
+import Base.PageBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -9,8 +10,8 @@ public class UploadPaymentFilePage extends PaymentsSection{
     By uploadArea = By.cssSelector("input[name='payments']");
     By uploadButton = By.cssSelector("input#uploadPayFileBtn");
     //By mappingFrame = By.cssSelector("form#mapForm");
-    By saveAndProcessButton =By.cssSelector("input#mapSaveBtn");
-    By confirmButton =By.cssSelector("[value='Confirm']");
+    By saveAndProcessButton =By.cssSelector("[value='Save and Process']");
+    By confirmButton =By.cssSelector("input[value='Confirm']");
 
 
     public UploadPaymentFilePage(WebDriver driver) {
@@ -19,6 +20,7 @@ public class UploadPaymentFilePage extends PaymentsSection{
 
     public void clickOnUploadButton()
     {
+        PageBase.explicitWait(10,uploadButton);
         driver.findElement(uploadButton).click();
     }
     public void saveUpload()
@@ -34,7 +36,10 @@ public class UploadPaymentFilePage extends PaymentsSection{
         String path = "E:\\Projects\\checkIssuingSelenium\\src\\main\\resources\\Attachments\\Checkissuing.csv" ;
         driver.findElement(uploadArea).sendKeys(path);
         clickOnUploadButton();
-        //saveUpload();
+        if(!path.contains("csv"))
+        {
+            saveUpload();
+        }
         confirmUpload();
     }
 }

@@ -179,7 +179,9 @@ public class HomePage extends PageBase {
     {
         PageBase.explicitWait(10,filterButton);
         WebElement filterElement= driver.findElement(filterButton);
-        return filterElement.getText();
+        helperSelect = new Select(filterElement);
+        WebElement selectedElement = helperSelect.getFirstSelectedOption();
+        return selectedElement.getText();
     }
     public void clickOnAllPayment()
     {

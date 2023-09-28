@@ -40,7 +40,7 @@ public class ViewPaymentsPage extends PaymentsSection{
 
     //Approve payment and its elements
     By approvePayment = By.xpath("//table[@id='paymentsList'] /tbody /tr[1] /td[8] //a[@title=\"Approve Payment\"]");
-    By approveFlash = By.xpath("/html/body/div[23]/div");
+    By approveFlash = By.xpath("/html/body/div[22]/div");
 
     //Delete payment and its elements
     By deletePayment = By.xpath("//table[@id='paymentsList'] /tbody /tr[1] /td[8] //a[@title=\"Delete Payment\"]");

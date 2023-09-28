@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="ReportsSuite">
+    <test name="ReportsSuite">
+        <classes>
+            <class name="Payments.UploadPaymentFileTest">
+                <methods>
+                    <include name="verifyUploadingPaymentFile"/>
+                </methods>
+            </class>
+            <class name="Reports.PaymentFilesTest"/>
+            <class name="Reports.PositivePayTest"/>
+            <class name="Reports.CheckImagesTest"/>
+
+        </classes>
+    </test>
+</suite>

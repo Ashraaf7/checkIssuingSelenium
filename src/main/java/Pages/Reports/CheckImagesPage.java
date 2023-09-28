@@ -33,12 +33,13 @@ public class CheckImagesPage extends PageBase {
         return selectedOption.getText();
     }
 
-    public void selectDate(String from , String to)  {
+    public void selectDate(String from , String to) throws InterruptedException {
         driver.findElement(dateSelect).click();
         fromDate= By.xpath("//div[contains(@class,'left')] //table[@class='table-condensed']/tbody/tr/td[text()='"+from+"']");
         toDate= By.xpath("//div[17]/div[3]/div[1]/table/tbody/tr/td[text()='"+to+"']");
         driver.findElement(fromDate).click();
         driver.findElement(toDate).click();
+        Thread.sleep(2000);
         driver.findElement(applyButton).click();
     }
     public boolean verifyDate(String expectedDate) {

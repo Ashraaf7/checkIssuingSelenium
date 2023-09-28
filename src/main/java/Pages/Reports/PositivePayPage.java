@@ -37,21 +37,25 @@ public class PositivePayPage extends PageBase {
     // Methods to interact with the elements
 
     public void selectAccountFilter(String optionText) {
+        PageBase.explicitWait(10,accountTypeFilter);
         driver.findElement(accountTypeFilter).click();
         Select select = new Select(driver.findElement(accountTypeFilter));
         select.selectByVisibleText(optionText);
     }
     public String verifyAccountFilter() {
+        PageBase.explicitWait(10,accountTypeFilter);
         Select select = new Select(driver.findElement(accountTypeFilter));
         WebElement selectedOption =select.getFirstSelectedOption();
         return selectedOption.getText();
     }
     public void selectDateFilter(String optionText) {
+        PageBase.explicitWait(10,dateFilter);
         driver.findElement(dateFilter).click();
         Select select = new Select(driver.findElement(dateFilter));
         select.selectByVisibleText(optionText);
     }
     public String verifyDateFilter() {
+        PageBase.explicitWait(10,dateFilter);
         Select select = new Select(driver.findElement(dateFilter));
         WebElement selectedOption =select.getFirstSelectedOption();
         return selectedOption.getText();
@@ -141,7 +145,7 @@ public class PositivePayPage extends PageBase {
     public boolean verifyDownloadSFTP (String filenamePattern)
     {
         int timeoutSeconds = 60;
-        Path downloadDir = Paths.get("C:\\Users\\elost\\Downloads");
+        Path downloadDir = Paths.get(downloadFilePath);
         boolean fileDownloaded = false;
 
         for (int i = 0; i < timeoutSeconds; i++) {

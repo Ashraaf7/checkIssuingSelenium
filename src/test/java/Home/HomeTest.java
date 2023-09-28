@@ -8,15 +8,14 @@ import org.testng.annotations.Test;
 
 public class HomeTest extends TestBase {
 
-    @Test
+    @Test(dependsOnMethods = "Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithoutAdvanced")
     public void setFilterForPayments()
     {
         loginPage.enterUsername(userName);
         loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
        homePage.setFilterForPayments("This Week");
-
-        Assert.assertEquals("This Week",homePage.getFilterForPayments());
+        Assert.assertEquals(homePage.getFilterForPayments(),"This Week");
     }
     @Test
     public void createPayment()
@@ -25,7 +24,7 @@ public class HomeTest extends TestBase {
         loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         homePage.clickOnCreatePayment();
-        Assert.assertEquals("https://web.checkissuing.com/payments?send=1",driver.getCurrentUrl());
+        Assert.assertEquals(driver.getCurrentUrl(),url+"payments?send=1");
 
     }
     @Test
@@ -35,7 +34,7 @@ public class HomeTest extends TestBase {
         loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         homePage.clickOnUploadPayment();
-        Assert.assertEquals("https://web.checkissuing.com/payments?upload=1",driver.getCurrentUrl());
+        Assert.assertEquals(driver.getCurrentUrl(),url+"payments?upload=1");
 
     }
     @Test
@@ -45,7 +44,7 @@ public class HomeTest extends TestBase {
         loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         homePage.clickOnPayees();
-        Assert.assertEquals("https://web.checkissuing.com/payees",driver.getCurrentUrl());
+        Assert.assertEquals(driver.getCurrentUrl(),url+"payees");
 
     }
     @Test
@@ -54,9 +53,8 @@ public class HomeTest extends TestBase {
         loginPage.enterUsername(userName);
         loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
-        homePage.clickOnPayees();
-        Assert.assertEquals("https://web.checkissuing.com/payments",driver.getCurrentUrl());
-
+        homePage.clickOnViewPayments();
+        Assert.assertEquals(driver.getCurrentUrl(),url+"payments");
     }
     @Test
 
@@ -66,7 +64,7 @@ public class HomeTest extends TestBase {
         loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         homePage.clickOnPayBills();
-        Assert.assertEquals("https://web.checkissuing.com/qbo",driver.getCurrentUrl());
+        Assert.assertEquals(driver.getCurrentUrl(),url+"qbo");
 
     }
     @Test
@@ -76,8 +74,7 @@ public class HomeTest extends TestBase {
         loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         homePage.clickOnPaymentFiles();
-        Assert.assertEquals("https://web.checkissuing.com/reports/payment-files",driver.getCurrentUrl());
-
+        Assert.assertEquals(driver.getCurrentUrl(),url+"reports/payment-files");
     }
     @Test
     public void positivePays()
@@ -86,7 +83,7 @@ public class HomeTest extends TestBase {
         loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         homePage.clickOnPositivePays();
-        Assert.assertEquals("https://web.checkissuing.com/reports/positive-pay",driver.getCurrentUrl());
+        Assert.assertEquals(driver.getCurrentUrl(),url+"reports/positive-pay");
 
     }
     @Test
@@ -106,7 +103,7 @@ public class HomeTest extends TestBase {
         loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         homePage.clickOnAllSettings();
-        Assert.assertEquals("https://web.checkissuing.com/settings",driver.getCurrentUrl());
+        Assert.assertEquals(driver.getCurrentUrl(),url+"settings");
 
     }
     @Test
@@ -116,7 +113,7 @@ public class HomeTest extends TestBase {
         loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         homePage.clickOnFundingSources();
-        Assert.assertEquals("https://web.checkissuing.com/settings#fundingsources",driver.getCurrentUrl());
+        Assert.assertEquals(driver.getCurrentUrl(),url+"settings#fundingsources");
 
     }
     @Test
@@ -126,7 +123,7 @@ public class HomeTest extends TestBase {
         loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         homePage.clickOnUsers();
-        Assert.assertEquals("https://web.checkissuing.com/settings#users",driver.getCurrentUrl());
+        Assert.assertEquals(driver.getCurrentUrl(),url+"settings#users");
     }
     @Test
     public void logosSetting()
@@ -135,7 +132,7 @@ public class HomeTest extends TestBase {
         loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         homePage.clickOnLogos();
-        Assert.assertEquals("https://web.checkissuing.com/settings#logos",driver.getCurrentUrl());
+        Assert.assertEquals(driver.getCurrentUrl(),url+"settings#logos");
     }
     @Test
     public void whiteLabelsSetting()
@@ -144,7 +141,7 @@ public class HomeTest extends TestBase {
         loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         homePage.clickOnWhiteLabels();
-        Assert.assertEquals("https://web.checkissuing.com/whitelabels",driver.getCurrentUrl());
+        Assert.assertEquals(driver.getCurrentUrl(),url+"whitelabels");
     }
 
 }

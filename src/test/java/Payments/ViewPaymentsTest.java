@@ -7,7 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-public class ViewPaymentsTest extends PaymentSectionTest {
+public class ViewPaymentsTest extends TestBase {
 
 
     ViewPaymentsPage viewPaymentsPage;
@@ -21,18 +21,18 @@ public class ViewPaymentsTest extends PaymentSectionTest {
         viewPaymentsPage =homePage.clickOnViewPayments();
         viewPaymentsPage.clickOnViewPayment();
         Thread.sleep(2000);
-        Assert.assertEquals(viewPaymentsPage.verifyThatViewPaymentAppears(),true);
+        Assert.assertTrue(viewPaymentsPage.verifyThatViewPaymentAppears());
     }
-    @Test
+    @Test(dependsOnMethods = "Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithAdvanced")
     public void verifyEditingPayment() {
         loginPage.enterUsername(userName);
         loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         viewPaymentsPage =homePage.clickOnViewPayments();
         viewPaymentsPage.clickOnEditPayment();
-        Assert.assertEquals(viewPaymentsPage.verifyThatEditPaymentAppears(),true);
+        Assert.assertTrue(viewPaymentsPage.verifyThatEditPaymentAppears());
     }
-    @Test
+    @Test(dependsOnMethods = "Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithAdvanced")
     public void verifyInsertingAttach() throws InterruptedException {
         loginPage.enterUsername(userName);
         loginPage.enterPassword(password);
@@ -40,16 +40,16 @@ public class ViewPaymentsTest extends PaymentSectionTest {
         viewPaymentsPage =homePage.clickOnViewPayments();
         viewPaymentsPage.clickOnAttachInsert();
         Thread.sleep(2000);
-        Assert.assertEquals(viewPaymentsPage.verifyThatInsertAttachAppears(),true);
+        Assert.assertTrue(viewPaymentsPage.verifyThatInsertAttachAppears());
     }
-    @Test
+    @Test(dependsOnMethods = "Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithAdvanced")
     public void verifyCancelingPayment() {
         loginPage.enterUsername(userName);
         loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         viewPaymentsPage =homePage.clickOnViewPayments();
         viewPaymentsPage.clickOnCancelPayment();
-        Assert.assertEquals(viewPaymentsPage.verifyThatCancelPaymentAppears(),true);
+        Assert.assertTrue(viewPaymentsPage.verifyThatCancelPaymentAppears());
     }
     @Test
     public void verifyCheckingImage() throws InterruptedException {
@@ -59,25 +59,25 @@ public class ViewPaymentsTest extends PaymentSectionTest {
         viewPaymentsPage =homePage.clickOnViewPayments();
         viewPaymentsPage.clickOnCheckImage();
         Thread.sleep(2000);
-        Assert.assertEquals(viewPaymentsPage.verifyThatCheckImageAppears(),true);
+        Assert.assertTrue(viewPaymentsPage.verifyThatCheckImageAppears());
     }
-    @Test
+    @Test(dependsOnMethods = "Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithAdvanced")
     public void verifyApprovePayment() {
         loginPage.enterUsername(userName);
         loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         viewPaymentsPage =homePage.clickOnViewPayments();
         viewPaymentsPage.clickOnApprovePayment();
-        Assert.assertEquals(viewPaymentsPage.verifyThatApprovePaymentAppears(),true);
+        Assert.assertTrue(viewPaymentsPage.verifyThatApprovePaymentAppears());
     }
-    @Test
+    @Test(dependsOnMethods = "Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithAdvanced")
     public void verifyDeletingPayment() {
         loginPage.enterUsername(userName);
         loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         viewPaymentsPage =homePage.clickOnViewPayments();
         viewPaymentsPage.clickOnDeletePayment();
-        Assert.assertEquals(viewPaymentsPage.verifyThatDeletePaymentAppears(),true);
+        Assert.assertTrue(viewPaymentsPage.verifyThatDeletePaymentAppears());
     }
 
 }

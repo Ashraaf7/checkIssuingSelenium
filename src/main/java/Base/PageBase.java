@@ -8,13 +8,15 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.nio.file.Path;
 import java.time.Duration;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 
 public class PageBase {
     public static WebDriver driver ;
-    private static WebElement helperWebElement ;
+    protected static WebElement helperWebElement ;
+    protected final String downloadFilePath = "C:\\Users\\elost\\Downloads";
     public PageBase (WebDriver driver)
     {
         this.driver = driver;
@@ -23,7 +25,7 @@ public class PageBase {
     {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
          helperWebElement = driver.findElement(element);
-        new WebDriverWait(driver, Duration.ofSeconds(seconds)).until(ExpectedConditions.or(visibilityOf(helperWebElement),ExpectedConditions.elementToBeClickable(helperWebElement))) ;
+        new WebDriverWait(driver, Duration.ofSeconds(seconds)).until(ExpectedConditions.elementToBeClickable(helperWebElement)) ;
     }
     public static void ImplicitWait(long seconds)
     {

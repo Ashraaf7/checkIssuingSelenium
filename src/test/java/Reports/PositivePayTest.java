@@ -1,7 +1,6 @@
 package Reports;
 
 import Base.TestBase;
-import Pages.Home.HomePage;
 import Pages.Reports.PositivePayPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -15,10 +14,9 @@ public class PositivePayTest extends TestBase {
         loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         positivePayPage=homePage.clickOnPositivePays();
-        String bank ="Bank 34";
-        positivePayPage.selectAccountFilter(bank);
+        positivePayPage.selectAccountFilter(fundingResource);
         Thread.sleep(2000);
-        Assert.assertEquals(positivePayPage.verifyAccountFilter(),bank);
+        Assert.assertEquals(positivePayPage.verifyAccountFilter(),fundingResource);
     }
     @Test
     public void verifyDateFilter() throws InterruptedException {
@@ -38,7 +36,7 @@ public class PositivePayTest extends TestBase {
         homePage=loginPage.clickOnLoginButton();
         positivePayPage=homePage.clickOnPositivePays();
         positivePayPage.clickSFTPUploaderIcon();
-        positivePayPage.addSFTPAccount("testSFTP", "Bank 34","Arcadia Power", "http://0.0.0.0:8089", "test", "test", "YourDirectoryToUpload");
+        positivePayPage.addSFTPAccount("testSFTP", fundingResource, sftpFormat, "http://0.0.0.0:8089", "test", "test", "YourDirectoryToUpload");
         Thread.sleep(2000);
         Assert.assertTrue(positivePayPage.verifyAddingSFTPAccount());
     }
@@ -62,11 +60,10 @@ public class PositivePayTest extends TestBase {
         homePage=loginPage.clickOnLoginButton();
         positivePayPage=homePage.clickOnPositivePays();
         positivePayPage.clickSFTPDownloadIcon();
-        String downloadFormat = "Arcadia Power - CSV";
-        positivePayPage.selectDownloadFormat(downloadFormat);
+        positivePayPage.selectDownloadFormat(sftpFormat);
         positivePayPage.clickDoDownloadLink();
         Thread.sleep(2000);
-        String pattern = "^pp-arcadia-power-\\d{8}-\\d{8}\\.csv$";
+        String pattern = "^pp-smart-bank-\\d{8}-\\d{8}(\\.txt)?$";
         Assert.assertTrue(positivePayPage.verifyDownloadSFTP(pattern));
     }
 }

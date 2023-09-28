@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 public class PaymentFilesTest extends TestBase {
     PaymentFilesPage paymentFilesPage ;
     HomePage homePage;
-    @Test
+    @Test(dependsOnMethods = {"Payments.UploadPaymentFileTest.verifyUploadingPaymentFile"})
     public void verifyFilterOption() throws InterruptedException {
         loginPage.enterUsername(userName);
         loginPage.enterPassword(password);
@@ -21,7 +21,7 @@ public class PaymentFilesTest extends TestBase {
         Assert.assertTrue(paymentFilesPage.verifyFilteringOption());
     }
 
-    @Test
+    @Test(dependsOnMethods = {"Payments.UploadPaymentFileTest.verifyUploadingPaymentFile"})
     public void verifyDownloadingPayment() throws InterruptedException {
         loginPage.enterUsername(userName);
         loginPage.enterPassword(password);
@@ -29,7 +29,7 @@ public class PaymentFilesTest extends TestBase {
         paymentFilesPage=homePage.clickOnPaymentFiles();
         paymentFilesPage.clickOnDownloadIcon();
         Thread.sleep(2000);
-        String fileName = paymentFilesPage.getFileName();
-        Assert.assertTrue(paymentFilesPage.verifyDownloadPayments(fileName));
+        String filenamePattern = "checkissuing\\.\\d+\\.csv";
+        Assert.assertTrue(paymentFilesPage.verifyDownloadPayments(filenamePattern));
     }
 }

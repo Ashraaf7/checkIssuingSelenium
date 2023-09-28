@@ -9,7 +9,7 @@ import org.testng.asserts.SoftAssert;
 
 import java.awt.*;
 
-public class UploadPaymentFileTest extends PaymentSectionTest {
+public class UploadPaymentFileTest extends TestBase {
 
 
     UploadPaymentFilePage uploadPaymentFilePage;

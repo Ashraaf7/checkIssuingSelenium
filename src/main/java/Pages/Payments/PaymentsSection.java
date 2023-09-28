@@ -81,9 +81,12 @@ public class PaymentsSection extends PageBase {
     }
     public void clickOnNextPageButton()
     {
-        //PageBase.scrollToElement(nextButton);
-        PageBase.scrollToPosition(1176,1835);
-        driver.findElement(nextButton).click();
+        WebElement flagNextButton = driver.findElement(nextButton);
+        if(flagNextButton.isDisplayed()) {
+            PageBase.scrollToElement(nextButton);
+            //PageBase.scrollToPosition(1176,1835);
+            driver.findElement(nextButton).click();
+        }
     }
     public void selectFromFilterDropDown(String text)
     {
@@ -111,7 +114,7 @@ public class PaymentsSection extends PageBase {
     public boolean verifyExportPage()
     {
         int timeoutSeconds = 60;
-        Path filePath = Paths.get("C:\\Users\\elost\\Downloads", "Checkissuing.csv");
+        Path filePath = Paths.get(downloadFilePath, "Checkissuing.csv");
         boolean fileDownloaded = false;
 
         for (int i = 0; i < timeoutSeconds; i++) {
@@ -126,11 +129,7 @@ public class PaymentsSection extends PageBase {
             }
         }
 
-        if (fileDownloaded) {
-            return true;
-        } else {
-            return false;
-        }
+        return fileDownloaded;
     }
     public void selectFromWithSelectedDropDown(String text){
         PageBase.scrollToElement(withSelectedButton);
@@ -140,14 +139,15 @@ public class PaymentsSection extends PageBase {
         driver.findElement(customize).click();
     }
     public void selectFromSelectDropDown(String text) throws InterruptedException {
+        Thread.sleep(3000);
         clickOnNextPageButton();
-        Thread.sleep(2000);
-        PageBase.scrollToElement(selectButton);
+        Thread.sleep(3000);
+        PageBase.scrollToElement(createPaymentButton);
         driver.findElement(selectButton).click();
+        selectFromFilterDropDown(text);
         actions = new Actions(driver);
         actions.sendKeys(Keys.ESCAPE).perform();
-        selectFromFilterDropDown(text);
-        PageBase.scrollToElement(withSelectedButton);
+       PageBase.scrollToElement(createPaymentButton);
         driver.findElement(withSelectedButton).click();
         driver.findElement(By.xpath("//a[@aria-controls='paymentsList'] /span[text()='Delete']")).click();
     }
