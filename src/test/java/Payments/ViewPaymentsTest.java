@@ -32,7 +32,7 @@ public class ViewPaymentsTest extends TestBase {
         viewPaymentsPage.clickOnEditPayment();
         Assert.assertTrue(viewPaymentsPage.verifyThatEditPaymentAppears());
     }
-    @Test(dependsOnMethods = "Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithAdvanced")
+    @Test(dependsOnMethods = "Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithoutAdvanced")
     public void verifyInsertingAttach() throws InterruptedException {
         loginPage.enterUsername(userName);
         loginPage.enterPassword(password);
@@ -61,7 +61,7 @@ public class ViewPaymentsTest extends TestBase {
         Thread.sleep(2000);
         Assert.assertTrue(viewPaymentsPage.verifyThatCheckImageAppears());
     }
-    @Test(dependsOnMethods = "Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithAdvanced")
+    @Test(dependsOnMethods = "Payments.UploadPaymentFileTest.verifyUploadingPaymentFile")
     public void verifyApprovePayment() {
         loginPage.enterUsername(userName);
         loginPage.enterPassword(password);
@@ -70,7 +70,7 @@ public class ViewPaymentsTest extends TestBase {
         viewPaymentsPage.clickOnApprovePayment();
         Assert.assertTrue(viewPaymentsPage.verifyThatApprovePaymentAppears());
     }
-    @Test(dependsOnMethods = "Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithAdvanced")
+    @Test(dependsOnMethods = "Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithoutAdvanced")
     public void verifyDeletingPayment() {
         loginPage.enterUsername(userName);
         loginPage.enterPassword(password);

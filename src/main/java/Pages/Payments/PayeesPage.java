@@ -52,6 +52,7 @@ public class PayeesPage extends PaymentsSection {
     public void selectFundingSource(String fundingSourceValue) {
         WebElement selectElement = driver.findElement(fundingSource);
         Select select = new Select(selectElement);
+        PageBase.explicitWait(10,fundingSource);
         select.selectByVisibleText(fundingSourceValue);
     }
 
