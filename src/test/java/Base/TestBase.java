@@ -18,7 +18,7 @@ public class TestBase {
     protected final String url ="https://web.checkissuing.net/" ;
     protected final String userName = "Chyannelitchfield13@gmail.com";
     protected final String password = "1qaz!QAZ";
-    protected String fundingResource = "Bank 34" ;
+    protected String fundingResource = "Payroll account" ;
     protected String sftpFormat = "Smart Bank" ;
 
     @BeforeMethod

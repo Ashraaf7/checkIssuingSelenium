@@ -47,7 +47,7 @@ public class CreatePaymentTest extends TestBase {
         loginPage.enterPassword(password);
         homePage=loginPage.clickOnLoginButton();
         createPaymentPage=homePage.clickOnCreatePayment();
-        createPaymentPage.createACHFormWithAdvanced(fundingResource,"ACHAdvancedTest","test@gmail.com","100","USD","test","Savings","301011214","301011214","10","Test PDF insert","","");
+        createPaymentPage.createACHFormWithAdvanced(fundingResource,"ACHAdvancedTest","test@gmail.com","100","USD","test","Savings","301011214","301011214","10","No Insert","","");
         Thread.sleep(200);
         Assert.assertEquals(createPaymentPage.getTheLastPayee(),"ACHAdvancedTest");
     }
