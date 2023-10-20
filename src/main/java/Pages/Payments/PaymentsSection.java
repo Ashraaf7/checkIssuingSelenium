@@ -131,6 +131,7 @@ public class PaymentsSection extends PageBase {
 
         return fileDownloaded;
     }
+
     public void selectFromWithSelectedDropDown(String text){
         PageBase.scrollToElement(withSelectedButton);
         driver.findElement(payeeStatusOnThePaymentTable).click();
