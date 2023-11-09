@@ -1,0 +1,17 @@
+Pages\Settings\WhitelabelPage.class
+Pages\Reports\CheckImagesPage.class
+Pages\Settings\UsersPage.class
+Base\PageBase.class
+Pages\Payments\CreatePaymentPage.class
+Pages\Settings\LogosPage.class
+Pages\Payments\PaymentsSection.class
+Pages\Settings\AllSettingsPage.class
+Pages\Settings\FundingSourcesPage.class
+Pages\Home\HomePage.class
+Pages\Reports\PositivePayPage.class
+Pages\Payments\PayeesPage.class
+Pages\Reports\PaymentFilesPage.class
+Pages\Payments\UploadPaymentFilePage.class
+Pages\Login\LoginPage.class
+Pages\Payments\ViewPaymentsPage.class
+Pages\Settings\SuperSettings.class

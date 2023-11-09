@@ -2,20 +2,20 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2023-10-20T23:22:56 EET" name="LoginSuite" finished-at="2023-10-20T23:25:13 EET" duration-ms="136817">
+  <suite started-at="2023-10-20T23:48:56 EET" name="LoginSuite" finished-at="2023-10-20T23:50:20 EET" duration-ms="84067">
     <groups>
     </groups>
-    <test started-at="2023-10-20T23:22:56 EET" name="LoginSuite" finished-at="2023-10-20T23:25:13 EET" duration-ms="136817">
+    <test started-at="2023-10-20T23:48:56 EET" name="LoginSuite" finished-at="2023-10-20T23:50:20 EET" duration-ms="84067">
       <class name="Login.LoginTest">
-        <test-method is-config="true" signature="setup()[pri:0, instance:Login.LoginTest@1b11171f]" started-at="2023-10-20T23:22:56 EET" name="setup" finished-at="2023-10-20T23:23:50 EET" duration-ms="53970" status="PASS">
+        <test-method is-config="true" signature="setup()[pri:0, instance:Login.LoginTest@1b11171f]" started-at="2023-10-20T23:48:56 EET" name="setup" finished-at="2023-10-20T23:49:07 EET" duration-ms="10441" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="validLogin()[pri:0, instance:Login.LoginTest@1b11171f]" started-at="2023-10-20T23:23:50 EET" name="validLogin" finished-at="2023-10-20T23:25:12 EET" duration-ms="82001" status="PASS">
+        <test-method signature="validLogin()[pri:0, instance:Login.LoginTest@1b11171f]" started-at="2023-10-20T23:49:07 EET" name="validLogin" finished-at="2023-10-20T23:50:20 EET" duration-ms="72911" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- validLogin -->
-        <test-method is-config="true" signature="quit()[pri:0, instance:Login.LoginTest@1b11171f]" started-at="2023-10-20T23:25:12 EET" name="quit" finished-at="2023-10-20T23:25:13 EET" duration-ms="575" status="PASS">
+        <test-method is-config="true" signature="quit()[pri:0, instance:Login.LoginTest@1b11171f]" started-at="2023-10-20T23:50:20 EET" name="quit" finished-at="2023-10-20T23:50:20 EET" duration-ms="332" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- quit -->

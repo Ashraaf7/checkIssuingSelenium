@@ -1,0 +1,16 @@
+Payments\ViewPaymentsTest.class
+Payments\UploadPaymentFileTest.class
+Payments\PaymentSectionTest.class
+Reports\PositivePayTest.class
+Login\LoginTest.class
+Settings\WhitelabelTest.class
+Settings\UsersTest.class
+Payments\CreatePaymentTest.class
+Payments\PayeesTest.class
+Settings\AllSettingsTest.class
+Home\HomeTest.class
+Base\TestBase.class
+Settings\LogosTest.class
+Reports\CheckImagesTest.class
+Reports\PaymentFilesTest.class
+Settings\FundingSourcesTest.class
