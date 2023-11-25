@@ -1,70 +1,64 @@
 package Reports;
 
 import Base.TestBase;
+import Pages.Login.LoginPage;
 import Pages.Reports.PositivePayPage;
+import Utilities.Utilities;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.awt.*;
+
 public class PositivePayTest extends TestBase {
 
-    PositivePayPage positivePayPage ;
     @Test
-    public void verifyAccountFilter() throws InterruptedException {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        positivePayPage=homePage.clickOnPositivePays();
-        positivePayPage.selectAccountFilter(fundingResource);
-        Thread.sleep(2000);
-        Assert.assertEquals(positivePayPage.verifyAccountFilter(),fundingResource);
+    public void verifyAccountFilter()   {
+        new LoginPage(driver).enterUsername(userName).enterPassword(password)
+                .clickOnLoginButton()
+                .clickOnPositivePays()
+                .selectAccountFilter(fundingResource);
+        Assert.assertEquals(new PositivePayPage(driver).verifyAccountFilter(),fundingResource);
     }
     @Test
-    public void verifyDateFilter() throws InterruptedException {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        positivePayPage=homePage.clickOnPositivePays();
+    public void verifyDateFilter()   {
         String date = "This Week";
-        positivePayPage.selectDateFilter(date);
-        Thread.sleep(2000);
-        Assert.assertEquals(positivePayPage.verifyDateFilter(),date);
+        new LoginPage(driver).enterUsername(userName).enterPassword(password)
+                .clickOnLoginButton()
+                .clickOnPositivePays()
+                .selectDateFilter(date);
+        Assert.assertEquals(new PositivePayPage(driver).verifyDateFilter(),date);
     }
     @Test
-    public void verifyAddingNewSFTP() throws InterruptedException {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        positivePayPage=homePage.clickOnPositivePays();
-        positivePayPage.clickSFTPUploaderIcon();
-        positivePayPage.addSFTPAccount("testSFTP", fundingResource, sftpFormat, "http://0.0.0.0:8089", "test", "test", "YourDirectoryToUpload");
-        Thread.sleep(2000);
-        Assert.assertTrue(positivePayPage.verifyAddingSFTPAccount());
+    public void verifyAddingNewSFTP()   {
+        new LoginPage(driver).enterUsername(userName).enterPassword(password)
+                .clickOnLoginButton()
+                .clickOnPositivePays()
+                .clickSFTPUploaderIcon()
+                .addSFTPAccount("testSFTP", fundingResource, sftpFormat, "http://0.0.0.0:8089", "test", "test", "YourDirectoryToUpload");
+        Assert.assertTrue(new PositivePayPage(driver).verifyAddingSFTPAccount());
     }
     @Test
-    public void verifyDeletingSFTP() throws InterruptedException {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        positivePayPage=homePage.clickOnPositivePays();
-        positivePayPage.clickSFTPUploaderIcon();
-        positivePayPage.deleteSFTPAccount();
-        Thread.sleep(2000);
-        Assert.assertTrue(positivePayPage.verifyAddingSFTPAccount());
+    public void verifyDeletingSFTP()   {
+        new LoginPage(driver).enterUsername(userName).enterPassword(password)
+                .clickOnLoginButton()
+                .clickOnPositivePays()
+                .clickSFTPUploaderIcon()
+                 .deleteSFTPAccount();
+        Assert.assertTrue(new PositivePayPage(driver).verifyAddingSFTPAccount());
     }
 
 
     @Test
-    public void verifyDownloadingSFTP() throws InterruptedException {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        positivePayPage=homePage.clickOnPositivePays();
-        positivePayPage.clickSFTPDownloadIcon();
-        positivePayPage.selectDownloadFormat(sftpFormat);
-        positivePayPage.clickDoDownloadLink();
-        Thread.sleep(2000);
+    public void verifyDownloadingSFTP() throws AWTException {
+        new LoginPage(driver).enterUsername(userName).enterPassword(password)
+                .clickOnLoginButton()
+                .clickOnPositivePays()
+                .clickSFTPDownloadIcon()
+                .selectDownloadFormat(sftpFormat)
+                .clickDoDownloadLink();
         String pattern = "^pp-smart-bank-\\d{8}-\\d{8}(\\.txt)?$";
-        Assert.assertTrue(positivePayPage.verifyDownloadSFTP(pattern));
+        new Robot().delay(3000);
+        Assert.assertTrue(Utilities.verifyDownloadedFiles(pattern));
     }
 }
 

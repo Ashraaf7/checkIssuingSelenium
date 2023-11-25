@@ -1,59 +1,46 @@
 package Pages.Payments;
 
-import Base.PageBase;
+import Utilities.Utilities;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
 public class PayeesPage extends PaymentsSection {
-    By idSortButton = By.xpath("//*[@id=\"payeeList\"]/thead/tr/th[1]");
+    public PayeesPage(WebDriver driver) {
+        super(driver);
+    }
+    // Sort Button
+    private By idSortButton = By.xpath("//*[@id=\"payeeList\"]/thead/tr/th[1]");
 
-    //Create payee
-    By createNewPayee = By.xpath("//*[@id=\"main-wrapper\"]/div/div/div[1]/div[2]/a");
-    By fundingSource = By.id("funding_source");
-    By payeeName = By.id("payee_name");
-    By email = By.id("email");
-    By mailTo = By.id("mail_to");
-    By payeeAddress = By.id("payee_addr");
-    By taxId = By.id("taxid");
-    By transId = By.id("trans_id");
-    By reference = By.id("reference");
-    By memo = By.id("memo");
-    By amount = By.id("amount");
-    By postageType = By.id("postage_type");
-    By accountType = By.id("acct_type");
+    // Create payee
+    private By createNewPayee = By.xpath("//*[@id=\"main-wrapper\"]/div/div/div[1]/div[2]/a");
+    private By fundingSource = By.id("funding_source");
+    private By payeeName = By.id("payee_name");
+    private By email = By.id("email");
+    private By mailTo = By.id("mail_to");
+    private By payeeAddress = By.id("payee_addr");
+    private By taxId = By.id("taxid");
+    private By transId = By.id("trans_id");
+    private By reference = By.id("reference");
+    private By memo = By.id("memo");
+    private By amount = By.id("amount");
+    private By postageType = By.id("postage_type");
+    private By accountType = By.id("acct_type");
 
-    By addPayeeButton = By.xpath("//input[@value='Add Payee']");
+    private By addPayeeButton = By.xpath("//input[@value='Add Payee']");
+
     // Methods to interact with the elements
-    public void clickOnCreateNewPayee()
+    public PayeesPage clickOnCreateNewPayee()
     {
         driver.findElement(createNewPayee).click();
-    }
-    public void createNewPayee(String fundingSourceValue, String name, String emailValue, String mailToValue,
-                               String address, String taxIdValue, String transIdValue, String referenceValue,
-                               String memoValue, String amountValue, String postageTypeValue, String accountTypeValue)
-    {
-        selectFundingSource(fundingSourceValue);
-        enterPayeeName(name);
-        enterEmail(emailValue);
-        enterMailTo(mailToValue);
-        enterPayeeAddress(address);
-        enterTaxId(taxIdValue);
-        enterTransactionId(transIdValue);
-        enterReference(referenceValue);
-        enterMemo(memoValue);
-        enterAmount(amountValue);
-        selectPostageType(postageTypeValue);
-        selectAccountType(accountTypeValue);
-        clickAddPayeeButton();
+        return  this;
     }
     public void selectFundingSource(String fundingSourceValue) {
-        WebElement selectElement = driver.findElement(fundingSource);
-        Select select = new Select(selectElement);
-        PageBase.explicitWait(10,fundingSource);
-        select.selectByVisibleText(fundingSourceValue);
+        Utilities.explicitlyWaitForVisibility(driver,fundingSource);
+        Utilities.selectFromDropDown(driver,fundingSource,fundingSourceValue);
     }
 
     public void enterPayeeName(String name) {
@@ -115,49 +102,74 @@ public class PayeesPage extends PaymentsSection {
         driver.findElement(addPayeeButton).click();
     }
 
-    public void sortIds()
+    public PayeesPage sortIds()
     {
+        Utilities.explicitlyWaitForClickability(driver,idSortButton);
         driver.findElement(idSortButton).click();
         driver.findElement(idSortButton).click();
+        return this;
     }
-    By payPayee = By.xpath("//table[@id='payeeList'] /tbody /tr[1] /td[5] //a[@title=\"Pay Payee\"]");
-
-    //Disable and its elements
-    By disablePayee = By.xpath("//table[@id='payeeList'] /tbody /tr[1] /td[5] //a[@title=\"Disable Payee\"]");
-    By enablePayee = By.xpath("//table[@id='payeeList'] /tbody /tr[1] /td[5] //a[@title=\"Enable Payee\"]");
-    By enabledStatus = By.xpath("//table[@id='payeeList'] /tbody /tr[1] /td[4]");
-
-    //Payee details and its elements
-    By payeeDetails = By.xpath("//table[@id='payeeList'] /tbody /tr[1] /td[5] //a[@title=\"Payee Details\"]");
-    By payeeNameOnThePayeeTable = By.xpath("//*[@id=\"payeeList\"]/tbody/tr[1]/td[2]");
-    By payeeNameOnTheHeader = By.xpath("//div/div/div[3]/div/div/form/div[1]/h4");
-
-    //Delete and its elements
-    By deletePayee = By.xpath("//table[@id='payeeList'] /tbody /tr[1] /td[5] //a[@title=\"Delete Payee\"]");
-    Alert alert ;
-    public PayeesPage(WebDriver driver) {
-        super(driver);
+    public PayeesPage createNewPayee(String fundingSourceValue, String name, String emailValue, String mailToValue,
+                               String address, String taxIdValue, String transIdValue, String referenceValue,
+                               String memoValue, String amountValue, String postageTypeValue, String accountTypeValue)
+    {
+        selectFundingSource(fundingSourceValue);
+        enterPayeeName(name);
+        enterEmail(emailValue);
+        enterMailTo(mailToValue);
+        enterPayeeAddress(address);
+        enterTaxId(taxIdValue);
+        enterTransactionId(transIdValue);
+        enterReference(referenceValue);
+        enterMemo(memoValue);
+        enterAmount(amountValue);
+        selectPostageType(postageTypeValue);
+        selectAccountType(accountTypeValue);
+        clickAddPayeeButton();
+        return this;
     }
-    public void clickOnPayPayee() throws InterruptedException{
+
+
+    // Payee Actions
+    private By payPayee = By.xpath("//table[@id='payeeList']/tbody/tr[1]/td[5]//a[@title=\"Pay Payee\"]");
+
+    // Disable and its elements
+    private By disablePayee = By.xpath("//table[@id='payeeList']/tbody/tr[1]/td[5]//a[@title=\"Disable Payee\"]");
+    private By enablePayee = By.xpath("//table[@id='payeeList']/tbody/tr[1]/td[5]//a[@title=\"Enable Payee\"]");
+    private By enabledStatus = By.xpath("//table[@id='payeeList']/tbody/tr[1]/td[4]");
+
+    // Payee details and its elements
+    private By payeeDetails = By.xpath("//table[@id='payeeList']/tbody/tr[1]/td[5]//a[@title=\"Payee Details\"]");
+    private By payeeNameOnThePayeeTable = By.xpath("//*[@id=\"payeeList\"]/tbody/tr[1]/td[2]");
+    private By payeeNameOnTheHeader = By.xpath("//div/div/div[3]/div/div/form/div[1]/h4");
+
+    // Delete and its elements
+    private By deletePayee = By.xpath("//table[@id='payeeList']/tbody/tr[1]/td[5]//a[@title=\"Delete Payee\"]");
+
+    public PayeesPage clickOnPayPayee() throws InterruptedException{
         Thread.sleep(2000);
         driver.findElement(payPayee).click();
+        return this;
     }
-    public void clickOnDisablePayee()throws InterruptedException {
+    public PayeesPage clickOnDisablePayee()throws InterruptedException {
         Thread.sleep(2000);
         driver.findElement(disablePayee).click();
+        return this;
     }
 
     public void clickOnEnablePayee() throws InterruptedException {
         Thread.sleep(2000);
         driver.findElement(enablePayee).click();
     }
-    public void clickOnPayeeDetails()throws InterruptedException {
+    public PayeesPage clickOnPayeeDetails()throws InterruptedException {
         Thread.sleep(2000);
         driver.findElement(payeeDetails).click();
+        return this;
     }
-    public void clickOnDeletePayee() throws InterruptedException {
+    public PayeesPage clickOnDeletePayee() throws InterruptedException {
         Thread.sleep(2000);
         driver.findElement(deletePayee).click();
+        return this;
     }
     public boolean verifyThatPayPayeeAppears()
     {
@@ -165,6 +177,7 @@ public class PayeesPage extends PaymentsSection {
     }
     public String verifyThatDisablePayeeAppears()
     {
+        Utilities.explicitlyWaitForVisibility(driver,enabledStatus);
         return driver.findElement(enabledStatus).getText();
     }
     public String getPayeeName()
@@ -173,17 +186,13 @@ public class PayeesPage extends PaymentsSection {
     }
     public String verifyThatPayeeDetailsAppears()
     {
+        Utilities.explicitlyWaitForVisibility(driver,payeeNameOnTheHeader);
         return driver.findElement(payeeNameOnTheHeader).getText();
     }
     public boolean verifyThatDeletePayeeAppears()
     {
-        alert = driver.switchTo().alert();
-        String flag ="";
-        flag = alert.getText();
-        if(!flag.equalsIgnoreCase(""))
-            return true;
-        else
-            return false;
+        Utilities.explicitlyWait(driver).until(ExpectedConditions.alertIsPresent());
+        return !driver.switchTo().alert().getText().equalsIgnoreCase("");
     }
 
 

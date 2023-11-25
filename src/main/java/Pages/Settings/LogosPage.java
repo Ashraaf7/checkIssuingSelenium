@@ -1,5 +1,6 @@
 package Pages.Settings;
 
+import Utilities.Utilities;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -25,6 +26,7 @@ public class LogosPage extends SuperSettings{
 
     public String verifyIfLogoAdded ()
     {
+        Utilities.explicitlyWaitForVisibility(driver,logoNameOnTheTable);
         return driver.findElement(logoNameOnTheTable).getText();
 
     }}

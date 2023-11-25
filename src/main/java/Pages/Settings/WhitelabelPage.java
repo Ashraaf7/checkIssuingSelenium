@@ -24,16 +24,12 @@ public class WhitelabelPage extends SuperSettings{
             driver.findElement(addWhitelabelLink).click();
             driver.findElement(whitelabelName).sendKeys(name);
             driver.findElement(whitelabelSubdomain).sendKeys(subdomain);
-            if (enabled){
-
-            }
-            else
+            if (!enabled)
                 driver.findElement(enabledCheckbox).click();
-        if (setDefault)
-            driver.findElement(setDefaultCheckbox).click();
-        else {
-        }
-        driver.findElement(addWhitelabelButton).click();
+            if (setDefault)
+                driver.findElement(setDefaultCheckbox).click();
+
+            driver.findElement(addWhitelabelButton).click();
     }
 
     public String verifyIfLabelAdded () throws InterruptedException {

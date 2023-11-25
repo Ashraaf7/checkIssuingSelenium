@@ -1,14 +1,15 @@
 package Pages.Reports;
 
-import Base.PageBase;
+import Utilities.Utilities;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-public class CheckImagesPage extends PageBase {
+public class CheckImagesPage   {
+    private WebDriver driver;
     public CheckImagesPage(WebDriver driver) {
-        super(driver);
+        this.driver= driver;
     }
     // Locators using By objects
     private By paymentTypeDropDown = By.id("dciPaymentType");
@@ -22,18 +23,16 @@ public class CheckImagesPage extends PageBase {
     private By dateSpanWhenSelectingDate = By.xpath("/html/body/div[17]/div[4]/span");
 
     // Methods to interact with the elements
-    public void selectPaymentType(String type) {
+    public CheckImagesPage selectPaymentType(String type) {
         driver.findElement(paymentTypeDropDown).click();
-        Select select = new Select(driver.findElement(paymentTypeDropDown));
-        select.selectByVisibleText(type);
+        Utilities.selectFromDropDown(driver,paymentTypeDropDown,type);
+        return this;
     }
     public String verifyPaymentType() {
-        Select select = new Select(driver.findElement(paymentTypeDropDown));
-        WebElement selectedOption =select.getFirstSelectedOption();
-        return selectedOption.getText();
+        return Utilities.getSelectedOptionFromDropDown(driver,paymentTypeDropDown).getText();
     }
 
-    public void selectDate(String from , String to) throws InterruptedException {
+    public CheckImagesPage selectDate(String from , String to) throws InterruptedException {
         driver.findElement(dateSelect).click();
         fromDate= By.xpath("//div[contains(@class,'left')] //table[@class='table-condensed']/tbody/tr/td[text()='"+from+"']");
         toDate= By.xpath("//div[17]/div[3]/div[1]/table/tbody/tr/td[text()='"+to+"']");
@@ -41,15 +40,13 @@ public class CheckImagesPage extends PageBase {
         driver.findElement(toDate).click();
         Thread.sleep(2000);
         driver.findElement(applyButton).click();
+        return this;
     }
     public boolean verifyDate(String expectedDate) {
         driver.findElement(dateSelect).click();
         String actual=driver.findElement(dateSpanWhenSelectingDate).getText();
         clickCancelButtonWhenSelectingDate();
-        if(actual.contains(expectedDate))
-            return true;
-        else
-            return false;
+        return actual.contains(expectedDate);
     }
 
 

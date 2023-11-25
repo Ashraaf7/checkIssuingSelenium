@@ -1,6 +1,6 @@
 package Pages.Reports;
 
-import Base.PageBase;
+import Utilities.Utilities;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
-public class PositivePayPage extends PageBase {
+public class PositivePayPage   {
     // Locators using By objects
     private By accountTypeFilter = By.cssSelector("select#fs_filter");
     private By dateFilter = By.cssSelector("select#dr_shortcuts");
@@ -31,66 +31,57 @@ public class PositivePayPage extends PageBase {
     private By doDownloadLink = By.cssSelector("a#doDownloadLink");
     private By sftpTable = By.xpath("//*[@id=\"sftpModal\"]/div/div/div[2]/table");
     private By deleteSftpAccount = By.xpath("//*[@id=\"sftpModal\"]/div/div/div[2]/table/tbody/tr/td[3]/a");
+
+    private WebDriver driver;
     public PositivePayPage(WebDriver driver) {
-        super(driver);
+        this.driver= driver;
     }
     // Methods to interact with the elements
 
     public void selectAccountFilter(String optionText) {
-        PageBase.explicitWait(10,accountTypeFilter);
+        Utilities.explicitlyWaitForClickability(driver,accountTypeFilter);
         driver.findElement(accountTypeFilter).click();
-        Select select = new Select(driver.findElement(accountTypeFilter));
-        select.selectByVisibleText(optionText);
+        Utilities.selectFromDropDown(driver,accountTypeFilter,optionText);
     }
     public String verifyAccountFilter() {
-        PageBase.explicitWait(10,accountTypeFilter);
-        Select select = new Select(driver.findElement(accountTypeFilter));
-        WebElement selectedOption =select.getFirstSelectedOption();
-        return selectedOption.getText();
+        Utilities.explicitlyWaitForVisibility(driver,accountTypeFilter);
+        return Utilities.getSelectedOptionFromDropDown(driver,accountTypeFilter).getText();
     }
     public void selectDateFilter(String optionText) {
-        PageBase.explicitWait(10,dateFilter);
+        Utilities.explicitlyWaitForClickability(driver,dateFilter);
         driver.findElement(dateFilter).click();
-        Select select = new Select(driver.findElement(dateFilter));
-        select.selectByVisibleText(optionText);
+        Utilities.selectFromDropDown(driver,dateFilter,optionText);
+
     }
     public String verifyDateFilter() {
-        PageBase.explicitWait(10,dateFilter);
-        Select select = new Select(driver.findElement(dateFilter));
-        WebElement selectedOption =select.getFirstSelectedOption();
-        return selectedOption.getText();
+        Utilities.explicitlyWaitForVisibility(driver,dateFilter);
+        return Utilities.getSelectedOptionFromDropDown(driver,dateFilter).getText();
     }
 
-    public void clickSFTPUploaderIcon() {
+    public PositivePayPage clickSFTPUploaderIcon() {
         driver.findElement(SFTPUploaderIcon).click();
+        return this;
     }
 
     public void clickAddSftpButton() {
         driver.findElement(addSftpButton).click();
     }
 
-    public void addSFTPAccount(String sftpName,String bankAccount, String sftpFormat, String sftpHost, String sftpUser, String sftpPass, String directoryToUpload) {
+    public PositivePayPage addSFTPAccount(String sftpName,String bankAccount, String sftpFormat, String sftpHost, String sftpUser, String sftpPass, String directoryToUpload) {
         clickAddSftpButton();
         enterSftpName(sftpName);
-        selectBankAccount(bankAccount);
-        selectSftpFormat(sftpFormat);
+        Utilities.selectFromDropDown(driver,bankType,bankAccount);
+        Utilities.selectFromDropDown(driver,sftpFormatId,sftpFormat);
         enterSftpHost(sftpHost);
         enterSftpUser(sftpUser);
         enterSftpPass(sftpPass);
         enterDirectoryToUpload(directoryToUpload);
         clickSaveFormatButton();
+        return this;
     }
     public void enterSftpName(String name) {
         driver.findElement(sftpName).clear();
         driver.findElement(sftpName).sendKeys(name);
-    }
-    public void selectBankAccount(String format) {
-        Select select = new Select(driver.findElement(bankType));
-        select.selectByVisibleText(format);
-    }
-    public void selectSftpFormat(String format) {
-        Select select = new Select(driver.findElement(sftpFormatId));
-        select.selectByVisibleText(format);
     }
 
     public void enterSftpHost(String host) {
@@ -117,64 +108,34 @@ public class PositivePayPage extends PageBase {
     }
     public boolean verifyAddingSFTPAccount()
     {
+        Utilities.explicitlyWaitForVisibility(driver,addSftpButton);
        return driver.findElement(addSftpButton).isDisplayed();
     }
-    public void deleteSFTPAccount()
+    public PositivePayPage deleteSFTPAccount()
     {
          driver.findElement(deleteSftpAccount).click();
+         return this;
     }
     public boolean verifyDeletingSFTPAccount()
     {
         return driver.findElement(sftpTable).isDisplayed();
     }
 
-    public void clickSFTPDownloadIcon() {
+    public PositivePayPage clickSFTPDownloadIcon() {
         driver.findElement(sftpDownloadIcon).click();
+        return this;
     }
 
-    public void selectDownloadFormat(String format) {
+    public PositivePayPage selectDownloadFormat(String format) {
         driver.findElement(downloadFileFormat).click();
-        Select select = new Select(driver.findElement(downloadFileFormat));
-        select.selectByVisibleText(format);
+        Utilities.selectFromDropDown(driver,downloadFileFormat,format);
+        return this;
     }
 
-    public void clickDoDownloadLink() {
+    public PositivePayPage clickDoDownloadLink() {
         driver.findElement(doDownloadLink).click();
+        return this;
     }
 
-    public boolean verifyDownloadSFTP (String filenamePattern)
-    {
-        int timeoutSeconds = 60;
-        Path downloadDir = Paths.get(downloadFilePath);
-        boolean fileDownloaded = false;
 
-        for (int i = 0; i < timeoutSeconds; i++) {
-            if (checkFilesInDirectory(downloadDir, filenamePattern)) {
-                fileDownloaded = true;
-                break;
-            }
-            try {
-                TimeUnit.SECONDS.sleep(1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return fileDownloaded;
-
-    }
-    private boolean checkFilesInDirectory(Path directory, String filenamePattern) {
-        Pattern regex = Pattern.compile(filenamePattern);
-
-        try {
-            return Files.walk(directory)
-                    .filter(Files::isRegularFile)
-                    .map(Path::getFileName)
-                    .map(Path::toString)
-                    .anyMatch(filename -> regex.matcher(filename).matches());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
 }

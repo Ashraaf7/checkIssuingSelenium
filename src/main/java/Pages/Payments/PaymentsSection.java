@@ -1,6 +1,6 @@
 package Pages.Payments;
 
-import Base.PageBase;
+import Utilities.Utilities;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -14,62 +14,58 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class PaymentsSection extends PageBase {
+public class PaymentsSection   {
 
 
-    By payeeNameOnThePaymentTable = By.xpath("//table[@id='paymentsList'] /tbody /tr[1] /td[3]");
+    // Payment Table Elements
+    private By payeeNameOnThePaymentTable = By.xpath("//table[@id='paymentsList']/tbody/tr[1]/td[3]");
+    private By payeeStatusOnThePaymentTable = By.xpath("//table[@id='paymentsList']/tbody/tr[1]/td[5]");
 
-    By payeeStatusOnThePaymentTable = By.xpath("//table[@id='paymentsList'] /tbody /tr[1] /td[5]");
-    //Headers Elements
-    By statusDropDown = By.cssSelector("select#pf_datefld");
-    By filterDate = By.cssSelector("input#pf_dr");
-    By uploadPaymentButton = By.cssSelector("a.btn-primary");
-    By uploadForm = By.cssSelector("form#uploadPayFileForm");
-    By paymentForm = By.cssSelector("div.bounceInDown#sendPayment");
+    // Headers Elements
+    private By statusDropDown = By.cssSelector("select#pf_datefld");
+    private By filterDate = By.cssSelector("input#pf_dr");
+    private By uploadPaymentButton = By.cssSelector("a.btn-primary");
+    private By uploadForm = By.cssSelector("form#uploadPayFileForm");
+    private By paymentForm = By.cssSelector("div.bounceInDown#sendPayment");
+    private By createPaymentButton = By.cssSelector("a#sendPaymentBtn");
+    private By NACHAForm = By.cssSelector("form#nachaForm");
+    private By NACHAButton = By.cssSelector("a#nachaLink");
+    private By upperDropDown = By.xpath("//button[@data-toggle='dropdown']");
 
-    By createPaymentButton = By.cssSelector("a#sendPaymentBtn");
-    By NACHAForm = By.cssSelector("form#nachaForm");
+    // Footer Elements
+    private By showPerPageButton = By.xpath("//*[@id=\"paymentsList_wrapper\"]/div[2]/div[1]/button");
+    private By customizeButton = By.xpath("//*[@id=\"paymentsList_wrapper\"]/div[2]/div[2]/button");
+    private By exportPageButton = By.xpath("//*[@id=\"paymentsList_wrapper\"]/div[2]/div[3]/button");
+    private By withSelectedButton = By.xpath("//*[@id=\"paymentsList_wrapper\"]/div[2]/div[4]/button");
+    private By selectButton = By.xpath("//*[@id=\"paymentsList_wrapper\"]/div[2]/div[5]/button");
+    private By applyFilterDateButton = By.xpath("/html/body/div[19]/div[4]/button[2]");
+    private By noPaymentMessage = By.cssSelector("div#addusermsg");
+    private By noMatchingFoundMessage = By.xpath("//*[@id=\"paymentsList\"]/tbody/tr/td");
+    private By theSeventhElementInTable = By.xpath("//table[@id='paymentsList']/thead/tr/th[7]");
+    private By tableRowsCount = By.xpath("//table[@id='paymentsList']/tbody/tr/td[1]");
+    private By claimFlash = By.xpath("/html/body/div[22]");
+    private By nextButton = By.cssSelector("#paymentsList_next");
 
-    By NACHAButton = By.cssSelector("a#nachaLink");
-    By upperDropDown = By.xpath("//button[@data-toggle='dropdown']");
-
-    //Footer Elements
-    By showPerPageButton = By.xpath("//*[@id=\"paymentsList_wrapper\"]/div[2]/div[1]/button");
-    By customizeButton = By.xpath("//*[@id=\"paymentsList_wrapper\"]/div[2]/div[2]/button");
-    By exportPageButton = By.xpath("//*[@id=\"paymentsList_wrapper\"]/div[2]/div[3]/button");
-    By withSelectedButton = By.xpath("//*[@id=\"paymentsList_wrapper\"]/div[2]/div[4]/button");
-    By selectButton = By.xpath("//*[@id=\"paymentsList_wrapper\"]/div[2]/div[5]/button");
-    By applyFilterDateButton = By.xpath("/html/body/div[19]/div[4]/button[2]");
-    By noPaymentMessage = By.cssSelector("div#addusermsg");
-    By noMatchingFoundMessage = By.xpath("//*[@id=\"paymentsList\"]/tbody/tr/td");
-    By theSeventhElementInTable = By.xpath("//table[@id='paymentsList'] /thead /tr /th[7] ");
-    By tableRowsCount = By.xpath("//table[@id='paymentsList'] /tbody /tr /td[1]");
-    By claimFlash = By.xpath("/html/body/div[22]");
-    By nextButton = By.cssSelector("#paymentsList_next");
-    By num;
-    By customize;
-    By leftDay;
-    By rightDay;
-    Select helperSelect ;
-    Actions actions;
+    // Other Elements
+    private By num;
+    private By customize;
+    private By leftDay;
+    private By rightDay;
+    protected WebDriver driver;
     public PaymentsSection(WebDriver driver) {
-        super(driver);
+        this.driver = driver;
     }
-    public void filerByStatus (String status){
-        WebElement statusDropDownElement =driver.findElement(statusDropDown);
-        helperSelect = new Select(statusDropDownElement);
-        helperSelect.selectByVisibleText(status);
-    }
-    public void selectFilterDate(String status,String from , String to) throws InterruptedException {
+    public PaymentsSection selectFilterDate(String status,String from , String to) throws InterruptedException {
         driver.findElement(filterDate).click();
-        filerByStatus(status);
+        Utilities.selectFromDropDown(driver,selectButton,status);
         leftDay  = By.xpath("//div[contains(@class,'left')]/div/table/tbody/tr/td[text()='"+from+"']");
         driver.findElement(leftDay).click();
         rightDay  = By.xpath("//div[contains(@class,'right')]/div/table/tbody/tr/td[text()='"+to+"']");
         driver.findElement(rightDay).click();
         driver.findElement(applyFilterDateButton).click();
         Thread.sleep(2000);
-        PageBase.scrollToElement(showPerPageButton);
+        Utilities.scrollToElement(driver,showPerPageButton);
+        return this;
     }
     public boolean verifyNoMatchingFoundMessage()
     {
@@ -81,82 +77,64 @@ public class PaymentsSection extends PageBase {
     }
     public void clickOnNextPageButton()
     {
-        WebElement flagNextButton = driver.findElement(nextButton);
-        if(flagNextButton.isDisplayed()) {
-            PageBase.scrollToElement(nextButton);
-            //PageBase.scrollToPosition(1176,1835);
+        if(Utilities.byToWebElement(driver,nextButton).isDisplayed()) {
+            Utilities.scrollToElement(driver,nextButton);
+            //Utilities.scrollToPosition(1176,1835);
             driver.findElement(nextButton).click();
         }
     }
-    public void selectFromFilterDropDown(String text)
+    public PaymentsSection selectFromFilterDropDown(String text)
     {
         customize  = By.xpath("//a[@aria-controls='paymentsList'] /span[text()='"+text+"']");
         driver.findElement(customize).click();
-        actions = new Actions(driver);
-        actions.sendKeys(Keys.ESCAPE).perform();
+        new Actions(driver).sendKeys(Keys.ESCAPE).perform();
+        return this;
     }
-    public void selectFromCustomizationDropDown(String text) throws InterruptedException {
-        PageBase.scrollToElement(customizeButton);
+    public PaymentsSection selectFromCustomizationDropDown(String text) throws InterruptedException {
+        Utilities.scrollToElement(driver,customizeButton);
         driver.findElement(customizeButton).click();
         Thread.sleep(4000);
         customize  = By.xpath("//a[@aria-controls='paymentsList'] /span[text()='"+text+"']");
         driver.findElement(customize).click();
         driver.findElement(customize).click();
-        actions = new Actions(driver);
-        actions.sendKeys(Keys.ESCAPE).perform();
+        new Actions(driver).sendKeys(Keys.ESCAPE).perform();
+        return this;
     }
 
-    public void selectFromExportPageDropDown(String text){
-        PageBase.scrollToElement(exportPageButton);
+    public PaymentsSection selectFromExportPageDropDown(String text){
+        Utilities.scrollToElement(driver,exportPageButton);
         driver.findElement(exportPageButton).click();
         selectFromFilterDropDown(text);
-    }
-    public boolean verifyExportPage()
-    {
-        int timeoutSeconds = 60;
-        Path filePath = Paths.get(downloadFilePath, "Checkissuing.csv");
-        boolean fileDownloaded = false;
-
-        for (int i = 0; i < timeoutSeconds; i++) {
-            if (Files.exists(filePath)) {
-                fileDownloaded = true;
-                break;
-            }
-            try {
-                TimeUnit.SECONDS.sleep(1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return fileDownloaded;
+        return this;
     }
 
-    public void selectFromWithSelectedDropDown(String text){
-        PageBase.scrollToElement(withSelectedButton);
+    public PaymentsSection selectFromWithSelectedDropDown(String text){
+        Utilities.scrollToElement(driver,withSelectedButton);
         driver.findElement(payeeStatusOnThePaymentTable).click();
         driver.findElement(withSelectedButton).click();
         customize  = By.xpath("//a[@aria-controls='paymentsList'] /span[text()='"+text+"']");
         driver.findElement(customize).click();
+        return this;
     }
-    public void selectFromSelectDropDown(String text) throws InterruptedException {
+    public PaymentsSection selectFromSelectDropDown(String text) throws InterruptedException {
         Thread.sleep(3000);
         clickOnNextPageButton();
         Thread.sleep(3000);
-        PageBase.scrollToElement(createPaymentButton);
+        Utilities.scrollToElement(driver,createPaymentButton);
         driver.findElement(selectButton).click();
         selectFromFilterDropDown(text);
-        actions = new Actions(driver);
-        actions.sendKeys(Keys.ESCAPE).perform();
-       PageBase.scrollToElement(createPaymentButton);
+        new Actions(driver).sendKeys(Keys.ESCAPE).perform();
+       Utilities.scrollToElement(driver,createPaymentButton);
         driver.findElement(withSelectedButton).click();
         driver.findElement(By.xpath("//a[@aria-controls='paymentsList'] /span[text()='Delete']")).click();
+        return this;
+
     }
     public void selectNumberOfPages(String number)
     {
         driver.findElement(showPerPageButton).click();
         num  = By.xpath("//span[text()='Show "+number+" Payments']");
-        PageBase.scrollToElement(num);
+        Utilities.scrollToElement(driver,num);
         driver.findElement(num).click();
     }
     public boolean verifyClaimFlash(){
@@ -178,21 +156,25 @@ public class PaymentsSection extends PageBase {
         return driver.findElement(theSeventhElementInTable).getText();
     }
 
-    public void clickOnUploadPayment()
+    public PaymentsSection clickOnUploadPayment()
     {
         driver.findElement(uploadPaymentButton).click();
+        return this;
     }
-    public void clickOnCreatePayment()
+    public CreatePaymentPage clickOnCreatePayment()
     {
         driver.findElement(createPaymentButton).click();
+        return new CreatePaymentPage(driver);
     }
-    public void clickOnNACHA()
+    public PaymentsSection clickOnNACHA()
     {
         driver.findElement(NACHAButton).click();
+        return this;
     }
 
     public boolean checkVisibilityOfCreatePaymentForm()
     {
+        Utilities.explicitlyWaitForClickability(driver,paymentForm);
         return driver.findElement(paymentForm).isDisplayed();
 
     }

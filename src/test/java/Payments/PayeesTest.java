@@ -1,74 +1,55 @@
 package Payments;
 
 import Base.TestBase;
-import Pages.Home.HomePage;
+import Pages.Login.LoginPage;
 import Pages.Payments.PayeesPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 public class PayeesTest extends TestBase {
 
-    PayeesPage payeesPage;
     @Test
-    public void verifyCreateNewPayee() throws InterruptedException {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        payeesPage =homePage.clickOnPayees();
-        payeesPage.clickOnCreateNewPayee();
+    public void verifyCreateNewPayee() {
         String expectedName = "New Man";
-        payeesPage.createNewPayee(fundingResource, expectedName, "ahmed@gmail.com", "Ahmoood", "ahmood@gmail",
-                "123", "10", "1", "test", "10", "USPS First Class","Checking");
-        Thread.sleep(2000);
-        payeesPage.sortIds();
-        Thread.sleep(2000);
-        String actualName = payeesPage.getPayeeName();
-        Assert.assertEquals(actualName,expectedName);
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+                .clickOnPayees().clickOnCreateNewPayee()
+                .createNewPayee(fundingResource, expectedName, "ahmed@gmail.com", "Ahmoood", "ahmood@gmail",
+                "123", "10", "1", "test", "10", "USPS First Class","Checking")
+                .sortIds();
+        //Thread.sleep(2000);
+        Assert.assertEquals(new PayeesPage(driver).getPayeeName(),expectedName);
     }
     @Test(dependsOnMethods = "Payments.PayeesTest.verifyCreateNewPayee")
     public void verifyPayPayee() throws InterruptedException {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        payeesPage =homePage.clickOnPayees();
-        payeesPage.clickOnPayPayee();
-        Thread.sleep(2000);
-        Assert.assertTrue(payeesPage.verifyThatPayPayeeAppears());
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+                .clickOnPayees()
+                .clickOnPayPayee();
+        Assert.assertTrue(new PayeesPage(driver).verifyThatPayPayeeAppears());
     }
     @Test(dependsOnMethods = "Payments.PayeesTest.verifyCreateNewPayee")
     public void verifyDisablePayee() throws InterruptedException {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        payeesPage =homePage.clickOnPayees();
-        payeesPage.clickOnDisablePayee();
-        Thread.sleep(2000);
-        Assert.assertEquals(payeesPage.verifyThatDisablePayeeAppears(),"Disabled");
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+                .clickOnPayees()
+                .clickOnDisablePayee();
+        Assert.assertEquals(new PayeesPage(driver).verifyThatDisablePayeeAppears(),"Disabled");
         //For enabling it for next test
-        payeesPage.clickOnEnablePayee();
+        new PayeesPage(driver).clickOnEnablePayee();
     }
     @Test(dependsOnMethods = "Payments.PayeesTest.verifyCreateNewPayee")
     public void verifyPayeeDetails() throws InterruptedException {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        payeesPage =homePage.clickOnPayees();
-        String expected = payeesPage.getPayeeName();
-        payeesPage.clickOnPayeeDetails();
+       String expected = new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+                .clickOnPayees()
+                .getPayeeName();
+        new PayeesPage(driver).clickOnPayeeDetails();
         Thread.sleep(2000);
-        Assert.assertEquals(payeesPage.verifyThatPayeeDetailsAppears(),expected);
+        Assert.assertEquals(new PayeesPage(driver).verifyThatPayeeDetailsAppears(),expected);
     }
     @Test(dependsOnMethods = "Payments.PayeesTest.verifyCreateNewPayee")
     public void verifyDeletingPayee() throws InterruptedException {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        payeesPage =homePage.clickOnPayees();
-
-        payeesPage.clickOnDeletePayee();
-        Thread.sleep(2000);
-        Assert.assertTrue(payeesPage.verifyThatDeletePayeeAppears());
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+                .clickOnPayees()
+                .clickOnDeletePayee();
+        Assert.assertTrue(new PayeesPage(driver).verifyThatDeletePayeeAppears());
     }
 
 

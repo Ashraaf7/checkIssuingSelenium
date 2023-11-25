@@ -2,8 +2,8 @@ package Home;
 
 import Base.TestBase;
 import Pages.Home.HomePage;
+import Pages.Login.LoginPage;
 import org.testng.Assert;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class HomeTest extends TestBase {
@@ -11,136 +11,104 @@ public class HomeTest extends TestBase {
     @Test(dependsOnMethods = "Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithoutAdvanced")
     public void setFilterForPayments()
     {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-       homePage.setFilterForPayments("This Week");
-        Assert.assertEquals(homePage.getFilterForPayments(),"This Week");
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+        .setFilterForPayments("This Week");
+        Assert.assertEquals(new HomePage(driver).getFilterForPayments(),"This Week");
     }
     @Test
     public void createPayment()
     {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        homePage.clickOnCreatePayment();
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+                .clickOnCreatePayment();
         Assert.assertEquals(driver.getCurrentUrl(),url+"payments?send=1");
-
     }
     @Test
     public void uploadPayment()
     {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        homePage.clickOnUploadPayment();
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+        .clickOnUploadPayment();
         Assert.assertEquals(driver.getCurrentUrl(),url+"payments?upload=1");
-
     }
     @Test
     public void payees()
     {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        homePage.clickOnPayees();
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+        .clickOnPayees();
         Assert.assertEquals(driver.getCurrentUrl(),url+"payees");
 
     }
     @Test
     public void viewPayment()
     {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        homePage.clickOnViewPayments();
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+        .clickOnViewPayments();
         Assert.assertEquals(driver.getCurrentUrl(),url+"payments");
     }
     @Test
 
     public void payBills()
     {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        homePage.clickOnPayBills();
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+        .clickOnPayBills();
         Assert.assertEquals(driver.getCurrentUrl(),url+"qbo");
 
     }
     @Test
     public void paymentFiles()
     {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        homePage.clickOnPaymentFiles();
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+        .clickOnPaymentFiles();
         Assert.assertEquals(driver.getCurrentUrl(),url+"reports/payment-files");
     }
     @Test
     public void positivePays()
     {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        homePage.clickOnPositivePays();
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+        .clickOnPositivePays();
         Assert.assertEquals(driver.getCurrentUrl(),url+"reports/positive-pay");
 
     }
     @Test
     public void checkImages()
     {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        homePage.clickOnCheckImages();
-        Assert.assertTrue(homePage.verifyGettingCheckImagesTitle());
-
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+        .clickOnCheckImages();
+        Assert.assertTrue(new HomePage(driver).verifyGettingCheckImagesTitle());
     }
     @Test
     public void allSettings()
     {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        homePage.clickOnAllSettings();
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+                .clickOnAllSettings();
         Assert.assertEquals(driver.getCurrentUrl(),url+"settings");
 
     }
     @Test
     public void fundingSources()
     {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        homePage.clickOnFundingSources();
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+        .clickOnFundingSources();
         Assert.assertEquals(driver.getCurrentUrl(),url+"settings#fundingsources");
-
     }
     @Test
     public void usersSetting()
     {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        homePage.clickOnUsers();
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+        .clickOnUsers();
         Assert.assertEquals(driver.getCurrentUrl(),url+"settings#users");
     }
     @Test
     public void logosSetting()
     {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        homePage.clickOnLogos();
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+        .clickOnLogos();
         Assert.assertEquals(driver.getCurrentUrl(),url+"settings#logos");
     }
     @Test
     public void whiteLabelsSetting()
     {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        homePage.clickOnWhiteLabels();
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+        .clickOnWhiteLabels();
         Assert.assertEquals(driver.getCurrentUrl(),url+"whitelabels");
     }
 

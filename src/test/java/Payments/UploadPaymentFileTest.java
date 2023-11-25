@@ -2,6 +2,7 @@ package Payments;
 
 import Base.TestBase;
 import Pages.Home.HomePage;
+import Pages.Login.LoginPage;
 import Pages.Payments.UploadPaymentFilePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -12,17 +13,15 @@ import java.awt.*;
 public class UploadPaymentFileTest extends TestBase {
 
 
-    UploadPaymentFilePage uploadPaymentFilePage;
 
 
     @Test
     public void verifyUploadingPaymentFile() throws InterruptedException, AWTException {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        uploadPaymentFilePage=homePage.clickOnUploadPayment();
-        uploadPaymentFilePage.uploadPayment();
-        Assert.assertEquals(uploadPaymentFilePage.getTheLastPayee(),"csv");
+        new LoginPage(driver).enterUsername(userName).enterPassword(password)
+                .clickOnLoginButton()
+                .clickOnUploadPayment()
+                 .uploadPayment("Checkissuing.csv");
+        Assert.assertEquals(new UploadPaymentFilePage(driver).getTheLastPayee(),"csv");
     }
 
 }

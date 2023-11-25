@@ -1,83 +1,64 @@
 package Payments;
 
 import Base.TestBase;
-import Pages.Home.HomePage;
+import Pages.Login.LoginPage;
 import Pages.Payments.ViewPaymentsPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 public class ViewPaymentsTest extends TestBase {
 
 
-    ViewPaymentsPage viewPaymentsPage;
 
 
     @Test
-    public void verifyViewingPayment() throws InterruptedException {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        viewPaymentsPage =homePage.clickOnViewPayments();
-        viewPaymentsPage.clickOnViewPayment();
-        Thread.sleep(2000);
-        Assert.assertTrue(viewPaymentsPage.verifyThatViewPaymentAppears());
+    public void verifyViewingPayment()   {
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+                .clickOnViewPayments()
+                .clickOnViewPayment();
+        Assert.assertTrue(new ViewPaymentsPage(driver).verifyThatViewPaymentAppears());
     }
     @Test(dependsOnMethods = "Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithAdvanced")
     public void verifyEditingPayment() {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        viewPaymentsPage =homePage.clickOnViewPayments();
-        viewPaymentsPage.clickOnEditPayment();
-        Assert.assertTrue(viewPaymentsPage.verifyThatEditPaymentAppears());
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+                .clickOnViewPayments()
+                .clickOnEditPayment();
+        Assert.assertTrue(new ViewPaymentsPage(driver).verifyThatEditPaymentAppears());
     }
     @Test(dependsOnMethods = "Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithoutAdvanced")
-    public void verifyInsertingAttach() throws InterruptedException {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        viewPaymentsPage =homePage.clickOnViewPayments();
-        viewPaymentsPage.clickOnAttachInsert();
-        Thread.sleep(2000);
-        Assert.assertTrue(viewPaymentsPage.verifyThatInsertAttachAppears());
+    public void verifyInsertingAttach()   {
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+                .clickOnViewPayments()
+                .clickOnAttachInsert();
+        Assert.assertTrue(new ViewPaymentsPage(driver).verifyThatInsertAttachAppears());
     }
     @Test(dependsOnMethods = "Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithAdvanced")
     public void verifyCancelingPayment() {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        viewPaymentsPage =homePage.clickOnViewPayments();
-        viewPaymentsPage.clickOnCancelPayment();
-        Assert.assertTrue(viewPaymentsPage.verifyThatCancelPaymentAppears());
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+                .clickOnViewPayments()
+                .clickOnCancelPayment();
+        Assert.assertTrue(new ViewPaymentsPage(driver).verifyThatCancelPaymentAppears());
     }
     @Test
-    public void verifyCheckingImage() throws InterruptedException {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        viewPaymentsPage =homePage.clickOnViewPayments();
-        viewPaymentsPage.clickOnCheckImage();
-        Thread.sleep(2000);
-        Assert.assertTrue(viewPaymentsPage.verifyThatCheckImageAppears());
+    public void verifyCheckingImage()   {
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+                .clickOnViewPayments()
+                .clickOnCheckImage();
+        Assert.assertTrue(new ViewPaymentsPage(driver).verifyThatCheckImageAppears());
     }
     @Test(dependsOnMethods = "Payments.UploadPaymentFileTest.verifyUploadingPaymentFile")
     public void verifyApprovePayment() {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        viewPaymentsPage =homePage.clickOnViewPayments();
-        viewPaymentsPage.clickOnApprovePayment();
-        Assert.assertTrue(viewPaymentsPage.verifyThatApprovePaymentAppears());
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+                .clickOnViewPayments()
+                .clickOnApprovePayment();
+        Assert.assertTrue(new ViewPaymentsPage(driver).verifyThatApprovePaymentAppears());
     }
     @Test(dependsOnMethods = "Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithoutAdvanced")
     public void verifyDeletingPayment() {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        viewPaymentsPage =homePage.clickOnViewPayments();
-        viewPaymentsPage.clickOnDeletePayment();
-        Assert.assertTrue(viewPaymentsPage.verifyThatDeletePaymentAppears());
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+                .clickOnViewPayments()
+                .clickOnDeletePayment();
+        Assert.assertTrue(new ViewPaymentsPage(driver).verifyThatDeletePaymentAppears());
     }
 
 }

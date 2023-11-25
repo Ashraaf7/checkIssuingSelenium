@@ -1,6 +1,6 @@
 package Pages.Settings;
 
-import Base.PageBase;
+import Utilities.Utilities;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -42,37 +42,39 @@ public class UsersPage extends SuperSettings{
     //for Validation
     private By nameFieldOnTheTable = By.xpath("//*[@id=\"usersList\"]/tbody/tr[1]/td[2]");
 
-    public void clickAddUser() {
-        driver.findElement(addUserLink).click();
-    }
 
-    public void fillUserData(String name, String username, String email) {
-        clickAddUser();
+    public UsersPage fillUserData(String name, String username, String email) {
+        driver.findElement(addUserLink).click();
         driver.findElement(nameField).sendKeys(name);
         driver.findElement(usernameField).clear();
         driver.findElement(usernameField).sendKeys(username);
         driver.findElement(emailField).sendKeys(email);
+        return this;
     }
     public void paymentsPermissions() {
         driver.findElement(paymentButton).click();
-        PageBase.ImplicitWait(10);
+        Utilities.explicitlyWaitForClickability(driver,addSendPayments);
         driver.findElement(addSendPayments).click();
+        Utilities.explicitlyWaitForClickability(driver,approvePayments);
         driver.findElement(approvePayments).click();
+        Utilities.explicitlyWaitForClickability(driver,cancelPayment);
         driver.findElement(cancelPayment).click();
+        Utilities.explicitlyWaitForClickability(driver,managePayment);
         driver.findElement(managePayment).click();
     }
 
 
     public void financePermissions() {
         driver.findElement(financesButton).click();
-        PageBase.ImplicitWait(10);
+        Utilities.explicitlyWaitForClickability(driver,billingPermission);
         driver.findElement(billingPermission).click();
+        Utilities.explicitlyWaitForClickability(driver,fundingSources);
         driver.findElement(fundingSources).click();
 
     }
     public void accessPermissions() {
         driver.findElement(accessButton).click();
-        PageBase.ImplicitWait(10);
+        Utilities.explicitlyWaitForClickability(driver,accountManagement);
         driver.findElement(accountManagement).click();
         driver.findElement(apiAccess).click();
         driver.findElement(manageInsert).click();
@@ -85,22 +87,25 @@ public class UsersPage extends SuperSettings{
     }
     public void otherPermissions() {
         driver.findElement(otherButton).click();
-        PageBase.ImplicitWait(10);
+        Utilities.explicitlyWaitForClickability(driver,logoManagement);
         driver.findElement(logoManagement).click();
     }
-    public void setAllPermissions( ) {
+    public UsersPage setAllPermissions( ) {
         paymentsPermissions();
         financePermissions();
         accessPermissions();
         otherPermissions();
+        return this;
     }
 
-    public void clickAddUserButton() {
+    public UsersPage clickAddUserButton() {
         driver.findElement(addUserButton).click();
+        return this;
     }
 
     public String checkIfUserAdded()
     {
+        Utilities.explicitlyWaitForVisibility(driver,nameFieldOnTheTable);
        return driver.findElement(nameFieldOnTheTable).getText();
     }
 

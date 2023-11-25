@@ -1,6 +1,6 @@
 package Pages.Settings;
 
-import Base.PageBase;
+import Utilities.Utilities;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -55,43 +55,38 @@ public class AllSettingsPage extends SuperSettings {
 
 
     public void setPhysicalAddress(String address) {
-        WebElement physicalAddress = driver.findElement(PhysicalAddress);
-        physicalAddress.clear();
-        physicalAddress.sendKeys(address);
+        driver.findElement(PhysicalAddress).clear();
+        driver.findElement(PhysicalAddress).sendKeys(address);
     }
 
 
     public void setMailingAddress(String address) {
-        WebElement mailingAddressElement = driver.findElement(mailingAddress);
-        mailingAddressElement.clear();
-        mailingAddressElement.sendKeys(address);
+        driver.findElement(mailingAddress).clear();
+        driver.findElement(mailingAddress).sendKeys(address);
     }
 
 
     public void setTaxId(String taxId) {
-        WebElement taxIdElement = driver.findElement(taxIdInput);
-        taxIdElement.clear();
-        taxIdElement.sendKeys(taxId);
+        driver.findElement(taxIdInput).clear();
+        driver.findElement(taxIdInput).sendKeys(taxId);
     }
 
     public void setPhone(String phone) {
-        WebElement phoneElement = driver.findElement(phoneInput);
-        phoneElement.clear();
-        phoneElement.sendKeys(phone);
+        driver.findElement(phoneInput).clear();
+        driver.findElement(phoneInput).sendKeys(phone);
     }
 
     public void selectPrimaryContact(String contact) {
-        new Select(driver.findElement(primaryContactSelect)).selectByVisibleText(contact);
+        Utilities.selectFromDropDown(driver,primaryContactSelect,contact);
     }
 
     public void selectAPContact(String contact) {
-        new Select(driver.findElement(payableContactSelect)).selectByVisibleText(contact);
+        Utilities.selectFromDropDown(driver,payableContactSelect,contact);
     }
 
     public void setInvoiceEmail(String email) {
-        WebElement invoiceEmail = driver.findElement(invoiceEmailInput);
-        invoiceEmail.clear();
-        invoiceEmail.sendKeys(email);
+        driver.findElement(invoiceEmailInput).clear();
+        driver.findElement(invoiceEmailInput).sendKeys(email);
     }
 
     public void clickOnSaveChanges() {

@@ -1,33 +1,36 @@
 package Pages.Login;
 
 import Pages.Home.HomePage;
-import Base.PageBase;
+import Utilities.Utilities;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class LoginPage extends PageBase {
+public class LoginPage   {
 
-    By username = By.id("username");
-    By password = By.id("password");
-    By loginButton = By.cssSelector("div.text-center > div.p-b-10> button");
+    private By username = By.id("username");
+    private By password = By.id("password");
+    private By loginButton = By.cssSelector("div.text-center > div.p-b-10> button");
+    private WebDriver driver;
     public LoginPage(WebDriver driver) {
-        super(driver);
+        this.driver= driver;
     }
 
 
-    public  void enterUsername(String usernameText)
+    public  LoginPage enterUsername(String usernameText)
     {
-        PageBase.explicitWait(10,username);
+        Utilities.explicitlyWaitForVisibility(driver, username);
         driver.findElement(username).sendKeys(usernameText);
+        return this;
     }
-    public  void enterPassword(String passwordText)
+    public  LoginPage enterPassword(String passwordText)
     {
-        PageBase.explicitWait(10,password);
+        Utilities.explicitlyWaitForVisibility(driver, password);
         driver.findElement(password).sendKeys(passwordText);
+        return this;
     }
     public HomePage clickOnLoginButton()
     {
-        PageBase.explicitWait(10,loginButton);
+        Utilities.explicitlyWaitForClickability(driver, loginButton);
         driver.findElement(loginButton).click();
         return new HomePage(driver);
     }

@@ -2,111 +2,84 @@ package Payments;
 
 import Base.TestBase;
 import Pages.Home.HomePage;
+import Pages.Login.LoginPage;
 import Pages.Payments.CreatePaymentPage;
 import Pages.Payments.PaymentsSection;
+import Utilities.Utilities;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 public class PaymentSectionTest extends TestBase {
-    private PaymentsSection paymentsSection;
     protected SoftAssert softAssert ;
+
     @Test(dependsOnMethods = "Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithAdvanced")
     public void verifySelectingNumberOfPages() {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        paymentsSection=homePage.clickOnCreatePayment();
         String numberOfPages = "25";
-        paymentsSection.selectNumberOfPages(numberOfPages);
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+                .clickOnCreatePayment().selectNumberOfPages(numberOfPages);;
         boolean condition ;
-        if(paymentsSection.getPaymentsCount()<=Integer.parseInt(numberOfPages))
-            condition= true;
-        else
-            condition=false;
+        condition= new PaymentsSection(driver).getPaymentsCount() <= Integer.parseInt(numberOfPages);
         Assert.assertTrue(condition,"Condition for check number of pages");
     }
     @Test(dependsOnMethods = "Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithAdvanced")
     public void verifyFilteringWithDate() throws InterruptedException {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        paymentsSection=homePage.clickOnCreatePayment();
         String status = "Cleared";
         String from = "15";
         String to = "15" ;
-        paymentsSection.selectFilterDate(status,from,to);
-        Assert.assertTrue(paymentsSection.verifyNoPaymentMessage());
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+                .clickOnCreatePayment().selectFilterDate(status,from,to);;
+        Assert.assertTrue(new PaymentsSection(driver).verifyNoPaymentMessage());
     }
     @Test(dependsOnMethods = "Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithAdvanced")
     public void verifySelectingFromCustomizationDropDown( ) throws InterruptedException {
-        softAssert = new SoftAssert();
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        paymentsSection=homePage.clickOnCreatePayment();
         String customizationOption = "Amount" ;
-        paymentsSection.selectFromCustomizationDropDown(customizationOption);
-        softAssert.assertEquals(paymentsSection.checkCustomization(),customizationOption);
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+                .clickOnCreatePayment().selectFromCustomizationDropDown(customizationOption);
+        softAssert.assertEquals(new PaymentsSection(driver).checkCustomization(),customizationOption);
         softAssert.assertAll();
     }
     @Test(dependsOnMethods = "Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithAdvanced")
     public void verifySelectingFromExportPageDropDown( ) throws InterruptedException {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        paymentsSection=homePage.clickOnCreatePayment();
         String exportOption ="Export as CSV" ;
-        paymentsSection.selectFromExportPageDropDown(exportOption);
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+                .clickOnCreatePayment().selectFromExportPageDropDown(exportOption);
+
         Thread.sleep(4000);
-        Assert.assertTrue(paymentsSection.verifyExportPage());
+        Assert.assertTrue(Utilities.verifyExportPage("Checkissuing.csv"));
     }
     @Test(dependsOnMethods = {"Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithAdvanced"})
     public void verifySelectingFromWithSelectedDropDown( ) throws InterruptedException {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        paymentsSection=homePage.clickOnCreatePayment();
         String option = "Resend Claim Email(s)" ;
-        paymentsSection.selectFromWithSelectedDropDown(option);
-        Assert.assertTrue(paymentsSection.verifyClaimFlash());
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+                .clickOnCreatePayment().selectFromWithSelectedDropDown(option);
+        Assert.assertTrue(new PaymentsSection(driver).verifyClaimFlash());
     }
     @Test(dependsOnMethods = "Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithAdvanced")
     public void verifySelectingFromSelectDropDown( ) throws InterruptedException {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        paymentsSection=homePage.clickOnCreatePayment();
         String selectOption = "Select All" ;
-        paymentsSection.selectFromSelectDropDown(selectOption);
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+                .clickOnCreatePayment().selectFromSelectDropDown(selectOption);
         Thread.sleep(2000);
-        Assert.assertTrue(paymentsSection.verifyNoMatchingFoundMessage());
+        Assert.assertTrue(new PaymentsSection(driver).verifyNoMatchingFoundMessage());
     }
     @Test(dependsOnMethods = "Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithAdvanced")
     public void verifyClickingOnCreatePaymentButton() {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        paymentsSection =homePage.clickOnUploadPayment();
-        paymentsSection.clickOnCreatePayment();
-        Assert.assertEquals(paymentsSection.checkVisibilityOfCreatePaymentForm(),true);
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+                .clickOnCreatePayment().clickOnUploadPayment()
+                .clickOnCreatePayment();
+        Assert.assertTrue(new PaymentsSection(driver).checkVisibilityOfCreatePaymentForm());
     }
     @Test(dependsOnMethods = "Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithAdvanced")
     public void verifyClickingOnUploadPaymentButton() {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        paymentsSection=homePage.clickOnCreatePayment();
-        paymentsSection.clickOnUploadPayment();
-        Assert.assertEquals(paymentsSection.checkVisibilityOfUploadPaymentForm(),true);
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+                .clickOnCreatePayment().clickOnUploadPayment();
+        Assert.assertTrue(new PaymentsSection(driver).checkVisibilityOfUploadPaymentForm());
     }
     @Test(dependsOnMethods = "Payments.CreatePaymentTest.verifyCreatingPaymentOnCheckWithAdvanced")
     public void verifyClickingOnNACHAButton() {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        paymentsSection=homePage.clickOnCreatePayment();
-        paymentsSection.clickOnNACHA();
-        Assert.assertTrue(paymentsSection.checkVisibilityOfNACHAForm());
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+                .clickOnCreatePayment().clickOnNACHA();
+        Assert.assertTrue(new PaymentsSection(driver).checkVisibilityOfNACHAForm());
     }
 }

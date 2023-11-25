@@ -1,35 +1,29 @@
 package Reports;
 
 import Base.TestBase;
-import Pages.Home.HomePage;
+import Pages.Login.LoginPage;
 import Pages.Reports.PaymentFilesPage;
+import Utilities.Utilities;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class PaymentFilesTest extends TestBase {
-    PaymentFilesPage paymentFilesPage ;
-    HomePage homePage;
+
     @Test(dependsOnMethods = {"Payments.UploadPaymentFileTest.verifyUploadingPaymentFile"})
-    public void verifyFilterOption() throws InterruptedException {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        paymentFilesPage=homePage.clickOnPaymentFiles();
+    public void verifyFilterOption()  {
         String option = "Today" ;
-        paymentFilesPage.selectFilterPayments(option);
-        Thread.sleep(2000);
-        Assert.assertTrue(paymentFilesPage.verifyFilteringOption());
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+                .clickOnPaymentFiles()
+                .selectFilterPayments(option);
+        Assert.assertTrue(new PaymentFilesPage(driver).verifyFilteringOption());
     }
 
     @Test(dependsOnMethods = {"Payments.UploadPaymentFileTest.verifyUploadingPaymentFile"})
-    public void verifyDownloadingPayment() throws InterruptedException {
-        loginPage.enterUsername(userName);
-        loginPage.enterPassword(password);
-        homePage=loginPage.clickOnLoginButton();
-        paymentFilesPage=homePage.clickOnPaymentFiles();
-        paymentFilesPage.clickOnDownloadIcon();
-        Thread.sleep(2000);
+    public void verifyDownloadingPayment()   {
+        new LoginPage(driver).enterUsername(userName).enterPassword(password).clickOnLoginButton()
+                .clickOnPaymentFiles()
+                .clickOnDownloadIcon();
         String filenamePattern = "checkissuing\\.\\d+\\.csv";
-        Assert.assertTrue(paymentFilesPage.verifyDownloadPayments(filenamePattern));
+        Assert.assertTrue(Utilities.verifyDownloadedFiles(filenamePattern));
     }
 }

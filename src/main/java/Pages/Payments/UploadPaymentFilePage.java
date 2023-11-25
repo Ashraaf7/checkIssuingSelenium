@@ -1,18 +1,20 @@
 package Pages.Payments;
 
-import Base.PageBase;
+import Utilities.Utilities;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import java.awt.*;
 
 public class UploadPaymentFilePage extends PaymentsSection{
-    By uploadArea = By.cssSelector("input[name='payments']");
-    By uploadButton = By.cssSelector("input#uploadPayFileBtn");
-    //By mappingFrame = By.cssSelector("form#mapForm");
-    By saveAndProcessButton =By.cssSelector("[value='Save and Process']");
-    By confirmButton =By.cssSelector("input[value='Confirm']");
 
+    // Upload Elements
+    private By uploadArea = By.cssSelector("input[name='payments']");
+    private By uploadButton = By.cssSelector("input#uploadPayFileBtn");
+
+    // Save and Process Elements
+    private By saveAndProcessButton = By.cssSelector("[value='Save and Process']");
+    private By confirmButton = By.cssSelector("input[value='Confirm']");
 
     public UploadPaymentFilePage(WebDriver driver) {
         super(driver);
@@ -20,7 +22,7 @@ public class UploadPaymentFilePage extends PaymentsSection{
 
     public void clickOnUploadButton()
     {
-        PageBase.explicitWait(10,uploadButton);
+        Utilities.explicitlyWaitForClickability(driver,uploadButton);
         driver.findElement(uploadButton).click();
     }
     public void saveUpload()
@@ -32,11 +34,10 @@ public class UploadPaymentFilePage extends PaymentsSection{
     {
         driver.findElement(confirmButton).click();
     }
-    public void uploadPayment() throws AWTException {
-        String path = "E:\\Projects\\checkIssuingSelenium\\src\\main\\resources\\Attachments\\Checkissuing.csv" ;
-        driver.findElement(uploadArea).sendKeys(path);
+    public void uploadPayment(String fileName) throws AWTException {
+        driver.findElement(uploadArea).sendKeys(Utilities.testDataPath+fileName);
         clickOnUploadButton();
-        if(!path.contains("csv"))
+        if(!fileName.contains("csv"))
         {
             saveUpload();
         }

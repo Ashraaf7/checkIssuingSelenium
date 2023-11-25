@@ -1,5 +1,6 @@
 package Pages.Settings;
 
+import Utilities.Utilities;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
@@ -45,23 +46,22 @@ public class FundingSourcesPage extends SuperSettings {
 
     private By accountNameOnTheTable = By.xpath("//*[@id=\"fsList\"]/tbody/tr[1]/td[2]");
 
-    public void addingFundingSource( boolean business, boolean plaid,String name,
+    public FundingSourcesPage addingFundingSource( boolean business, boolean plaid,String name,
      String bname,String baddress,String type,String anumber, String rnumber)
     {
         clickOnAddFundingSource();
         if(business)
-        clickOnCheckBusinessCheckbox();
-        else {}
+            clickOnCheckBusinessCheckbox();
         if (plaid){}
-        else
         clickOnCheckPlaidCheckbox();
         setAccountName(name);
         setBankName(bname);
         setBankAddress(baddress);
-        selectAccountType(type);
+        Utilities.selectFromDropDown(driver,accountType,type);
         setAccountNumber(anumber);
         setRoutingNumber(rnumber);
         clickOnAddAccountButton();
+        return this;
     }
     //Methods
     public void clickOnAddFundingSource() {
@@ -91,9 +91,6 @@ public class FundingSourcesPage extends SuperSettings {
         driver.findElement(bankAddress).sendKeys(address);
     }
 
-    public void selectAccountType(String type) {
-        new Select(driver.findElement(accountType)).selectByVisibleText(type);
-    }
 
     public void setAccountNumber(String number) {
         driver.findElement(accountNumber).clear();
@@ -113,7 +110,7 @@ public class FundingSourcesPage extends SuperSettings {
     /////////////////////////////////////////////////////////////////////////////////
     public void fillAccountInfoForm(String name, String bankName, String startingCheckNum, String fractionalRoutingNum,
                             String logoPath, String addressReturnTo, String addressOnChecks, String returnAddress,
-                            String bankAddressOnChecks, String voidText, String approvalThreshold, String defaultWhitelabel,String sname) throws InterruptedException {
+                            String bankAddressOnChecks, String voidText, String threshold, String whitelabel,String sname) throws InterruptedException {
         // Set name on check
         setNameOnCheck(name);
         // Set bank name on account info
@@ -123,7 +120,7 @@ public class FundingSourcesPage extends SuperSettings {
         // Set fractional routing number
         setFractionalRoutingNumber(fractionalRoutingNum);
         // Select logo
-        selectLogo(logoPath);
+        Utilities.selectFromDropDown(driver,selectLogo,logoPath);
         // Set address return to
         setAddressReturnTo(addressReturnTo);
         // Set address on checks
@@ -135,9 +132,10 @@ public class FundingSourcesPage extends SuperSettings {
         // Set void text
         setVoidText(voidText);
         // Set approval threshold
-        setApprovalThreshold(approvalThreshold);
+        Utilities.selectFromDropDown(driver,approvalThreshold,threshold);
+
         // Set default whitelabel
-        setDefaultWhitelabel(defaultWhitelabel);
+        Utilities.selectFromDropDown(driver,defaultWhitelabel,whitelabel);
         // Click on next button on account info
         clickOnNextButtonOnAccountInfo();
         //addingSignature(sname);
@@ -169,10 +167,6 @@ public class FundingSourcesPage extends SuperSettings {
     public void setFractionalRoutingNumber(String number) {
         driver.findElement(fractionalRoutingNum).clear();
         driver.findElement(fractionalRoutingNum).sendKeys(number);
-    }
-
-    public void selectLogo(String logoPath) {
-        new Select(driver.findElement(selectLogo)).selectByVisibleText(logoPath);
     }
 
     public void setAddressReturnTo(String address) {
